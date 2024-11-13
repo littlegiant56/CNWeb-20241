@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Form, FormGroup, Button } from 'react-bootstrap'
-import './Login.css'
+import './app.css'
 
 export default function Login() {
   return (
