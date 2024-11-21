@@ -4,18 +4,7 @@ import multer from 'multer';
 import {
   register,
   login,
-  logout,
   updateProfile,
-  findUser,
-  createFriendRequest,
-  getUserProfileById,
-  acceptFriendRequest,
-  getFriendList,
-  getAllUser,
-  declineFriendRequest,
-  getAllFriendRequests,
-  findFriend,
-  checkExistFriendRequest
 } from '../controllers/userController.js';
 
 const router = express.Router();
