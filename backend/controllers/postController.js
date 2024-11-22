@@ -159,3 +159,31 @@ export const likePost = async (req) => {
         console.log(e)
     }
 }
+
+export const removeLikePost = async (req, res) => {
+    const userId = req.params.userId
+    const postId = req.params.postId
+
+    const postRef = doc(db, "posts", postId)
+    const liked_list = (await getDoc(postRef)).data().likedList
+
+    try {
+        if (!liked_list.includes(userId)) {
+            res.status(202).json({
+                message: "User hasn't liked this post"
+            })
+        } else {
+            await updateDoc(postRef, {
+                likedList: arrayRemove(userId)
+            })
+
+            res.status(200).json({
+                message: `Post with id ${postId} remove liked by user ${userId}`
+            })
+        }
+    } catch (e) {
+        res.status(201).json({
+            message: `Failed to remove like post`
+        })
+    }
+}
