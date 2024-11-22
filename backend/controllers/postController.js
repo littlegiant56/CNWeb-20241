@@ -101,7 +101,6 @@ export const deletePost = async (req, res) => {
     }
 }
 
-
 export const getAllPost = async (req, res) => {
     let posts = []
 
@@ -126,3 +125,4 @@ export const getAllPost = async (req, res) => {
         })
     }
 }
+
