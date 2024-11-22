@@ -126,3 +126,36 @@ export const getAllPost = async (req, res) => {
     }
 }
 
+export const likePost = async (req) => {
+    const userId = req.userId
+    const postId = req.postId
+
+    try {
+        const postRef = doc(db, "posts", postId)
+        getDoc(postRef)
+            .then((doc) => {
+                if (doc.exists()) {
+                    const liked_list = doc.data().likedList
+                    if (liked_list.includes(userId)) {
+                        return {
+                            message: "User already liked this post"
+                        }
+                    } else {
+                        updateDoc(postRef, {
+                            likedList: arrayUnion(userId)
+                        })
+
+                        return {
+                            message: `Post with id ${postId} liked by user ${userId}`
+                        }
+                    }
+                } else {
+                    return {
+                        message: `No post with id ${postId} found`
+                    }
+                }
+            })
+    } catch (e) {
+        console.log(e)
+    }
+}
