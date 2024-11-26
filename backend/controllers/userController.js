@@ -87,6 +87,39 @@ export const login = async (req, res, next) => {
     });
 }
 
+// POST /logout
+export const logout = async (req, res) => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      res.status(200).json({
+        status: true,
+        message: "Đăng xuất thành công"
+      })
+    })
+    .catch((error) => {
+      res.status(200).json({
+        status: false,
+        message: error.message
+      })
+    });
+}
+
+export const getUserProfileById = async (req, res) => {
+  const docRef = doc(db, "profiles", req.params.idUser);
+  const docSnap = await getDoc(docRef);
+  if(docSnap.exists()){
+    res.status(200).json({
+      status: true,
+      user: docSnap.data()
+    })
+  } else {
+    res.status(400).json({
+      status: false,
+    })
+  }
+}
+
 // POST /updateProfile/:idUser
 export const updateProfile = async (req, res) => {
   const docRef = doc(db, "profiles", req.params.idUser);
@@ -157,39 +190,6 @@ export const updateProfile = async (req, res) => {
       })
     });
     if (!avatarCheck && !coverCheck) updateFirestore();
-}
-
-// POST /logout
-export const logout = async (req, res) => {
-  const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      res.status(200).json({
-        status: true,
-        message: "Đăng xuất thành công"
-      })
-    })
-    .catch((error) => {
-      res.status(200).json({
-        status: false,
-        message: error.message
-      })
-    });
-}
-
-export const getUserProfileById = async (req, res) => {
-  const docRef = doc(db, "profiles", req.params.idUser);
-  const docSnap = await getDoc(docRef);
-  if(docSnap.exists()){
-    res.status(200).json({
-      status: true,
-      user: docSnap.data()
-    })
-  } else {
-    res.status(400).json({
-      status: false,
-    })
-  }
 }
 
 export const getAllUser = async (req, res) => {
@@ -281,3 +281,129 @@ export const createFriendRequest = async (req, res) => {
     })
 }
 
+// GET /checkExistFriendRequest
+export const checkExistFriendRequest = async (req, res) => {
+  const friendRequest = {
+    sentUserId: req.params.userId,
+    receivedUserId: req.params.friendId,
+  };
+  let id = friendRequest.sentUserId + "-" + friendRequest.receivedUserId;
+  const friendRequestDoc = await getDoc(doc(db, "friendRequests", id));
+  if (friendRequestDoc.exists()) {
+    res.status(200).json({
+      status: true
+    })  
+  }
+  else {
+    res.status(200).json({
+      status: false
+    })
+  }
+}
+
+// POST /acceptFriendRequest
+export const acceptFriendRequest = async (req, res) => {
+  try {
+    // cập nhật userId vào bạn bè của friendId
+    const friendDocument = doc(db, "profiles", req.body.friendId);
+    const friend = await getDoc(friendDocument);
+    if (friend.data().friendList) {
+      let tmp = friend.data().friendList;
+      tmp.push(req.body.userId);
+      await updateDoc(friendDocument, { friendList: tmp });
+    }
+    else {
+      let tmp = [req.body.userId];
+      await updateDoc(friendDocument, { friendList: tmp });
+    }
+    // cập nhật friendId vào bạn bè của userId
+    const userDocument = doc(db, "profiles", req.body.userId);
+    const user = await getDoc(userDocument);
+    if (user.data().friendList) {
+      let tmp = user.data().friendList;
+      tmp.push(req.body.friendId);
+      await updateDoc(userDocument, { friendList: tmp });
+    }
+    else {
+      let tmp = [req.body.friendId];
+      await updateDoc(userDocument, { friendList: tmp });
+    }
+    // cập nhật trạng thái của lời mời kết bạn thành đã chấp nhận
+    let id = req.body.userId + "-" + req.body.friendId;
+    await deleteDoc(doc(db, "friendRequests", id));
+    // 
+    res.status(200).json({
+      status: true,
+      message: 'Chấp nhận lời mời kết bạn thành công'
+    });
+  }
+  catch (error) {
+    res.status(400).json({
+      status: false,
+      message: error.message
+    });
+  }
+}
+
+// POST /declineFriendRequest
+export const declineFriendRequest = async (req, res) => {
+  const id = req.body.userId + "-" + req.body.friendId;
+  deleteDoc(doc(db, "friendRequests", id))
+    .then(() => res.status(200).json({
+      status: true,
+    }))
+    .catch(error => res.status(400).json({
+      status: false,
+      message: error.message
+    }))
+}
+
+// GET /getAllFriendRequests/:userId
+export const getAllFriendRequests = async (req, res) => {
+  const q = query(collection(db, "friendRequests"), where("receivedUserId", "==", req.params.userId));
+  let id = [];
+  const data = await getDocs(q);
+  data.forEach((friendRequest) => {
+    id.push(friendRequest.data().sentUserId);
+  });
+  res.status(200).json({
+    id
+  });
+}
+
+// GET /getFriendList/:userId
+export const getFriendList = async (req, res) => {
+  try {
+    const userDocument = doc(db, "profiles", req.params.userId);
+    const user = await getDoc(userDocument);
+    var profileList = [];
+    if (user.data().friendList) {
+      let friendList = user.data().friendList;
+      let friendPromises = friendList.map((friendId) => {
+        return getDoc(doc(db, "profiles", friendId));
+      });
+      let friendSnapshots = await Promise.all(friendPromises);
+      friendSnapshots.forEach((snap) => {
+        let friendProfile = new Profile(snap);
+        profileList.push(friendProfile);
+      });
+      res.status(200).json({
+        status: true,
+        users: profileList
+      });
+    }
+    else {
+      res.status(200).json({
+        status: true,
+        //message: 'CSDL chưa có friendList',
+        users: []
+      });
+    }
+  }
+  catch (error) {
+    res.status(400).json({
+      status: false,
+      message: error.message
+    });
+  }
+}

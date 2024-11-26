@@ -4,13 +4,18 @@ import multer from 'multer';
 import {
   register,
   login,
-  updateProfile,
   logout,
-  getUserProfileById,
-  getAllUser,
+  updateProfile,
   findUser,
+  createFriendRequest,
+  getUserProfileById,
+  acceptFriendRequest,
+  getFriendList,
+  getAllUser,
+  declineFriendRequest,
+  getAllFriendRequests,
   findFriend,
-  createFriendRequest
+  checkExistFriendRequest
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -26,7 +31,12 @@ router.post('/updateProfile/:idUser', upload.fields([
   ]), updateProfile);
 router.get('/getAllUser', upload.none(), getAllUser);
 router.get('/findUser', upload.none(), findUser);
-router.get('/findFriend/:userId', upload.none(), findFriend);
 router.post('/createFriendRequest', upload.none(), createFriendRequest);
+router.post('/acceptFriendRequest', upload.none(), acceptFriendRequest);
+router.get('/getFriendList/:userId', upload.none(), getFriendList);
+router.post('/declineFriendRequest', upload.none(), declineFriendRequest);
+router.get('/getAllFriendRequests/:userId', upload.none(), getAllFriendRequests);
+router.get('/findFriend/:userId', upload.none(), findFriend);
+router.get('/checkExistFriendRequest/:userId/:friendId', upload.none(), checkExistFriendRequest);
 
 export default router;
