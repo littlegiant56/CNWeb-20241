@@ -33,17 +33,19 @@ export default function SignUp() {
             toast.error(res.data.message);
           }
         } else {
+          console.log("dky loi")
           setErrorMessage("Đăng ký thất bại");
         }
       })
       .catch(err => {
+        console.log("asdasd")
         setErrorMessage("Đăng ký thất bại");
       });
   };
 
   return (
     <div className='signup-login'>
-      <Container className='container shadow border p-4 pb-0 rounded-2' style={{ width: '450px', marginTop: '20px' ,color: 'white'}} >
+      <Container className='container-lg shadow border p-4 pb-0 rounded-2' style={{ width: '450px', marginTop: '20px' ,color: 'white'}} >
         <Form className='d-flex flex-column' onSubmit={handleSubmit}>
           <h1 className='align-self-center'>Đăng ký tài khoản</h1>
           <FormGroup className='mb-2'>

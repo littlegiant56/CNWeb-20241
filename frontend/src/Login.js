@@ -44,7 +44,7 @@ export default function Login() {
 
   return (
     <div className='signup-login'>
-      <Container className='container shadow border p-4 pb-0 rounded-2' style={{width: '450px', marginTop: '30px',color: 'white'}}>
+      <Container className='container-lg shadow border p-4 pb-0 rounded-2' style={{width: '450px', marginTop: '30px',color: 'white'}}>
         <Form className='d-flex flex-column' onSubmit={handleSubmit}>
           <h1 className='align-self-center'>Đăng nhập</h1>
           <FormGroup className='mb-2'>

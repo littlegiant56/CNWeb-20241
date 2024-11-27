@@ -9,7 +9,7 @@
     box-shadow: 0px 4px 10px rgba(219, 109, 109, 0.1);
 }
 
-.container {
+.container-lg {
     background: rgba(255, 255, 255, 0.2); 
     border-radius: 15px;
     backdrop-filter: blur(10px); 
