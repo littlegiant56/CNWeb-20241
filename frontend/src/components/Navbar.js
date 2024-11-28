@@ -1,16 +1,25 @@
 import React from 'react'
 import { Container, Row, Col, Image, NavDropdown } from 'react-bootstrap'
-import notification from '../assets/notification.png'
-import messenger from '../assets/messenger.png'
-import friends from '../assets/friends.png'
-import user from '../assets/user.png'
-import { Link } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import notification from '../assets/icons/notification.png'
+import messenger from '../assets/icons/messenger.png'
+import friends from '../assets/icons/friends.png'
+import user from '../assets/icons/user.png'
+import { Link, useNavigate } from 'react-router-dom'
+import logo from '../assets/icons/logo.png'
 import SearchBar from './SearchBar'
+import { socket } from '../socket'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 export default function Navbar() {
+    const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('userId');
+    // Disconnect socket.io connection
+    socket.disconnect();
+    navigate('/login');
+  }
 
     return (
         <Container className='p-2 border-bottom sticky-top' fluid style={{ height: '10%', backgroundColor: '#fff' }}>
