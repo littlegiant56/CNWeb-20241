@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import Post from '../posts/Post';
-import  CreatePost  from '../components/CreatePost';
+import {CreatePost} from '../components/CreatePost'
 import { getAllPost, getPostByOffset } from '../services/API';
 import { socket } from '../socket';
 import InfiniteScroll from 'react-infinite-scroll-component';

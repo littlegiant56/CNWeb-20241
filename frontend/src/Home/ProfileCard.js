@@ -13,10 +13,11 @@ export default function ProfileCard() {
     // Fetch user profile from API
     getProfileByUserId(userId)
       .then(res => {
+        console.log('check profile',res.data);
         setProfile(res.data.user)
       })
       .catch(err => {
-        console.log(err)
+        console.error("API error: ", err);
       })
   }, [])
 
