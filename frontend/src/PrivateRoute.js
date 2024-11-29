@@ -10,6 +10,10 @@ import { socket } from './socket'
  * @returns {JSX.Element} The rendered private route component.
  */
 export default function PrivateRoute() {
+  useEffect(()=>{
+    console.log("name "+localStorage.getItem('userId'))
+
+  })
   return (
     localStorage.getItem('userId') ? (
       <Layout />

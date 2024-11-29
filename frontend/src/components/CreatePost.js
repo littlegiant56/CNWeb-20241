@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Form, Button, Image } from 'react-bootstrap';
-import image from '../assets/image.png';
-import video from '../assets/video.png';
+import image from '../assets/icons/image.png';
+import video from '../assets/icons/video.png';
 
 
 export default function CreatePost() {
