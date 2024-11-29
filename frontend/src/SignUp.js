@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Container, Form, FormGroup, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from './services/API';
