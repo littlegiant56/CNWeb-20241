@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import ProfileCard from './Home/ProfileCard'
 import ConversationsContainer from './conversation/ConversationsContainer'
 import ConversationList from './conversation/ConversationList'
+import NotificationsContainer from './notification/NotificationsContainer'
 import { socket } from './socket'
 
 export default function Layout() {
@@ -42,7 +43,8 @@ export default function Layout() {
   return (
     <Container fluid className='p-0 position-relative'>
         <Navbar
-        
+        doesNotificationContainerOpen={doesNotificationContainerOpen} 
+        setDoesNotificationContainerOpen={setDoesNotificationContainerOpen} 
         doseMessageListOpen={doseMessageListOpen}
         setDoseMessageListOpen={setDoseMessageListOpen}
       />
@@ -54,7 +56,7 @@ export default function Layout() {
                 <Outlet />
             </Container>
         </Container>
-        
+        {doesNotificationContainerOpen && <NotificationsContainer />}
         {doseMessageListOpen && <ConversationList conversations={conversations} setConversations={setConversations}/>}
         <ConversationsContainer conversations={conversations} setConversations={setConversations}/>
     </Container>
