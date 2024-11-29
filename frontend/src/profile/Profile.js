@@ -125,13 +125,23 @@ export default function Profile() {
         }
       </Container>
       <Container className='d-flex mt-3' style={{ width: 1000, position: 'relative' }} fluid>
-        <Image
-          className='border border-1 rounded-circle'
-          src={profile.avatar}
-          style={{ width: 200, height: 200, position: 'relative', top: -100, left: 30, objectFit: 'cover', backgroundColor: 'white'}}
+      <Image
+  src={profile.avatar}
+  style={{
+    width: '200px',
+    height: '200px',
+    position: 'relative',
+    top: '-100px',
+    left: '30px',
+    objectFit: 'cover',
+    backgroundColor: 'white',
+    borderRadius: '50% !important' , // Đảm bảo borderRadius hoạt động
+    overflow: 'hidden', 
+    border:'1px solid red'  // Cắt nội dung thừa
+  }}
         />
         <Container >
-          <p className='ps-5' style={{ fontSize: 33, fontWeight: 'bold' }}>{profile.firstName + " " + profile.lastName}</p>
+          <p className='ps-5' style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '35px' }}>{profile.firstName + " " + profile.lastName}</p>
           {/* <NavLink className='ps-5' as='a' to="/friends" >??? friends</NavLink> */}
         </Container>
       </Container>

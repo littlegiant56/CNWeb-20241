@@ -3,10 +3,13 @@ import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import { getPostById, getProfileByUserId, removeLikePost } from '../services/API';
 import { socket } from '../socket'
-import heart from '../assets/icons/heart.png'
-import heart_red from '../assets/icons/heart_red.png'
-import comment from '../assets/icons/comment.png'
-import share from '../assets/icons/share.png'
+// import heart from '../assets/icons/heart.png'
+// import heart_red from '../assets/icons/heart_red.png'
+// import comment from '../assets/icons/comment.png'
+// import share from '../assets/icons/share.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp as regularThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import CommentSection from '../components/CommentSection';
 import ImageSlideShow from './ImageSlideShow';
 import SharedPostCard from '../components/SharedPostCard';
@@ -84,7 +87,7 @@ export default function DetailPost() {
               </Link>
             </Col>
             <Col className='d-flex flex-row-reverse'>
-              <p className='align-self-center m-0'>Tạo lúc: {dateCreated}</p>
+              <p className='align-self-center m-0'>Created at: {dateCreated}</p>
             </Col>
           </Container>
         </Card.Header>
@@ -97,18 +100,28 @@ export default function DetailPost() {
           {post.sharedPostId && <SharedPostCard postId={post.sharedPostId} />}
         </Card.Body>
         <Card.Footer>
-          <Container className='d-flex justify-content-between'>
-            <Col className='d-flex'>
-              <Image className='me-2' src={isLiked ? heart_red : heart} onClick={handleClickLike}/>
-              <p className='align-self-center m-0'>{likeCount} lượt thích</p>
+          <Container className='d-flex justify-content-between align-items-center'>
+            <Col className='d-flex align-items-center '>
+              <FontAwesomeIcon
+                icon={isLiked ? faThumbsUp : regularThumbsUp}
+                className='me-2'
+                style={{ cursor: 'pointer', color: isLiked ? 'blue' : 'black' }}
+                onClick={handleClickLike}
+              />
+              <p className='m-0'>{likeCount} Like</p>
             </Col>
-            <Col className='d-flex'>
-              <Image className='me-2' src={comment} />
-              <p className='align-self-center m-0'>{commentCount} bình luận</p>
+            <Col className='d-flex align-items-center justify-content-center' >
+              <FontAwesomeIcon icon={faComment} className='me-2' />
+              <p className='m-0'>{commentCount} Comment</p>
             </Col>
-            <Col className='d-flex'>
-              <Image className='me-2' style={{cursor: 'pointer'}} src={share} onClick={handleSharePost}/>
-              <p className='align-self-center m-0'>Chia sẻ</p>
+            <Col className='d-flex align-items-center justify-content-end'>
+              <FontAwesomeIcon
+                icon={faShare}
+                className='me-2'
+                style={{ cursor: 'pointer' }}
+                onClick={handleSharePost}
+              />
+              <p className=' m-0'>Share</p>
             </Col>
           </Container>
           <SharePostModal show={openShare} handleClose={() => setOpenShare(false)} postId={id} />

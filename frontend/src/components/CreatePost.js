@@ -53,7 +53,7 @@ export function CreatePost({ posts, setPosts }) {
   return (
     isLoading ? <Spinner animation='border' />
     : <Form className='mb-4 border' onSubmit={handleCreatePost}>
-      <textarea className="form-control mb-2" placeholder="Bạn đang nghĩ gì" style={{ height: "100px", border: 0 }} value={body} onChange={e => setBody(e.target.value)}/>
+      <textarea className="form-control mb-2" placeholder="What are you thinking?" style={{ height: "100px", border: 0 }} value={body} onChange={e => setBody(e.target.value)}/>
       {selectedImage.length > 0 &&
         <Container className='d-inline-flex justify-content-start p-2' style={{ overflowX: 'auto' }}>
           {selectedImage && selectedImage.map((img, index) => (
@@ -80,7 +80,7 @@ export function CreatePost({ posts, setPosts }) {
             <input id='video-upload' type='file' style={{ display: 'none' }} accept='video/*' onChange={onVideoSelected} />
           </div>
         </Container>
-        <Button type='submit'>Đăng</Button>
+        <Button type='submit'>Post</Button>
       </Container>
     </Form>
   );

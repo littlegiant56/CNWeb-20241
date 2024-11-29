@@ -23,9 +23,9 @@ export default function ProfileCard() {
 
   return (
     profile && <Container>
-      <Link className='d-flex border p-1 rounded-2' to={`/profile/${localStorage.getItem('userId')}`} style={{ textDecoration: 'none', color: 'black' }}>
+      <Link className='d-flex  rounded-2' to={`/profile/${localStorage.getItem('userId')}`} style={{ textDecoration: 'none', color: 'black' }}>
         <Image className='border ' src={profile.avatar} style={{width: '80px', height: '80px', objectFit: 'cover'}} roundedCircle />
-        <h5 className='align-self-center m-0 ms-2'>{profile.firstName + " " + profile.lastName}</h5>
+        <h5 className='align-self-center m-0 ms-2' style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '18px' }}>{profile.firstName + " " + profile.lastName}</h5>
       </Link>
     </Container>
   )

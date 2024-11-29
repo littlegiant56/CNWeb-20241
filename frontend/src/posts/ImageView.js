@@ -4,12 +4,14 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getPostById, getProfileByUserId, removeLikePost } from '../services/API';
 import { socket } from '../socket'
 import CommentSection from '../components/CommentSection'
-import heart from '../assets/icons/heart.png'
-import comment from '../assets/icons/comment.png'
-import share from '../assets/icons/share.png'
-import prevArrow from '../assets/icons/prev-arrow.png'
-import nextArrow from '../assets/icons/next-arrow.png'
-import heart_red from '../assets/icons/heart_red.png'
+// import heart from '../assets/icons/heart.png'
+// import comment from '../assets/icons/comment.png'
+// import share from '../assets/icons/share.png'
+// import prevArrow from '../assets/icons/prev-arrow.png'
+// import nextArrow from '../assets/icons/next-arrow.png'
+// import heart_red from '../assets/icons/heart_red.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
 import backIcon from '../assets/icons/back_icon.png'
 
 export default function ImageView() {
@@ -108,18 +110,23 @@ export default function ImageView() {
           {post.dateCreated && 
             <p className='text-secondary'>{new Date(post.dateCreated.seconds * 1000).toLocaleString()}</p>
           }
-          <Container className='d-flex justify-content-between p-0'>
-            <Col className='d-flex'>
-              <Image className='me-2' onClick={handleClickLike} src={isLiked ? heart_red : heart} />
-              <p className='align-self-center m-0'>{likeCount} lượt thích</p>
+          <Container className='d-flex justify-content-between align-items-center p-0'>
+            <Col className='d-flex align-items-center '>
+              <FontAwesomeIcon 
+                icon={faThumbsUp} 
+                className='me-2' 
+                onClick={handleClickLike} 
+                style={{cursor: 'pointer', color: isLiked ? 'blue' : 'black'}} 
+              />
+              <p className='m-0'>{likeCount} Like</p>
             </Col>
-            <Col className='d-flex'>
-            <Image className='me-2' src={comment} />
-              <p className='align-self-center m-0'>{commentCount} bình luận</p>
+            <Col className='d-flex align-items-center justify-content-center' >
+              <FontAwesomeIcon icon={faComment} className='me-2' />
+              <p className=' m-0'>{commentCount} Comment</p>
             </Col>
-            <Col className='d-flex'>
-            <Image className='me-2' src={share} />
-              <p className='align-self-center m-0'>Chia sẻ</p>
+            <Col className='d-flex align-items-center justify-content-end'>
+              <FontAwesomeIcon icon={faShare} className='me-2' />
+              <p className=' m-0'>Share</p>
             </Col>
           </Container>
         </Container>

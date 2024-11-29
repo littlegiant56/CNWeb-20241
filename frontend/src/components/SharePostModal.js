@@ -12,7 +12,7 @@ export default function SharePostModal({ show, handleClose, postId }) {
   const handleSharePost = () => {
     sharePost(postId, { body, userId: localStorage.getItem('userId') })
       .then(res => {
-        toast.success('Chia sẻ bài viết thành công')
+        toast.success('Share article successfully')
         handleClose()
       })
   }
@@ -38,7 +38,7 @@ export default function SharePostModal({ show, handleClose, postId }) {
   return (
     <Modal size='lg' show={show} onHide={handleClose} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Chia sẻ bài viết</Modal.Title>
+        <Modal.Title>Share this post</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <textarea className='form-control mb-2' style={{border: 0}} value={body} onChange={e => setBody(e.target.value)} placeholder='Chia sẻ ...'/>
@@ -62,10 +62,10 @@ export default function SharePostModal({ show, handleClose, postId }) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Đóng
+          Close
         </Button>
         <Button variant="primary" onClick={handleSharePost}>
-          Chia sẻ
+          Share
         </Button>
       </Modal.Footer>
     </Modal>

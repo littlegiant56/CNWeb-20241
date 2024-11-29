@@ -54,7 +54,7 @@ export default function NewFeeds() {
           loader={<h4>Loading...</h4>}
         >
           {posts.map((post, index) => (
-            <Post key={index} post={post} posts={posts} setPosts={setPosts} />
+            <Post key={index} post={post} posts={posts} setPosts={setPosts} style={{ marginBottom: '50px' }} />
           ))}
         </InfiniteScroll>
     </Container>

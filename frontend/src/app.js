@@ -8,6 +8,8 @@ import PrivateRoute from './PrivateRoute';
 import ImageView from "./posts/ImageView";
 import DetailPost from "./posts/DetailPost";
 import Profile from './profile/Profile';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 function App() {
   useEffect(()=>{
     console.log("name App","4353")
@@ -26,6 +28,7 @@ function App() {
         </Route>
         <Route path="/new-feed" element={<NewFeeds />} />
       </Routes>
+      <ToastContainer hideProgressBar />
     </BrowserRouter>
   );
 }
