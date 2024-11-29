@@ -10,7 +10,7 @@ import { socket } from './socket'
 
 export default function Layout() {
   const [conversations, setConversations] = useState([]);
-  
+  const [doesNotificationContainerOpen, setDoesNotificationContainerOpen] = useState(false);
   const [doseMessageListOpen, setDoseMessageListOpen] = useState(false);
 
   useEffect(() => {
