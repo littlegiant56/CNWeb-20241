@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import ProfileCard from './Home/ProfileCard'
 import ConversationsContainer from './conversation/ConversationsContainer'
 import ConversationList from './conversation/ConversationList'
+import FriendList from './Home/FriendList'
 import NotificationsContainer from './notification/NotificationsContainer'
 import { socket } from './socket'
 
@@ -54,6 +55,9 @@ export default function Layout() {
             </Container>
             <Container className='p-0' style={{ width: '60%' }}>
                 <Outlet />
+            </Container>
+            <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', right: '0px' }}>
+              <FriendList conversations={conversations} setConversations={setConversations} />
             </Container>
         </Container>
         {doesNotificationContainerOpen && <NotificationsContainer />}
