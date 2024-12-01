@@ -32,7 +32,9 @@ export default function NavBar({ doesNotificationContainerOpen, setDoesNotificat
           <SearchBar />
         </Col>
         <Col className='col-6'>
+          <Link to={`/`}>
           <FontAwesomeIcon icon={faHome}  style={{ fontSize: '25px' ,marginLeft:'102px',cursor:'pointer' }} />
+          </Link>
           <Link to={`/friendRequest`}>
             <FontAwesomeIcon icon={faUserFriends}  style={{ fontSize: '25px',marginLeft:'85px', color:'black',cursor:'pointer' }} />
           </Link>
