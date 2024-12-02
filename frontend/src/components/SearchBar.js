@@ -6,7 +6,7 @@ function SearchBar() {
         <Container className='searchInputs d-flex'>
           <Form id='Search' className="justify-content-center">
             <Form.Control
-              className='rounded-pill' type="text" placeholder="Tìm kiếm"
+              className='rounded-pill' type="text" placeholder="Search"
               style={{ height: '50px' }}
             />
           </Form>

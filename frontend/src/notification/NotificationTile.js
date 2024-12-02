@@ -20,8 +20,8 @@ export function NotificationTile({ notification }) {
 	return (
 		profileUser && <Link to={`/post/${notification.postId}`} style={{ textDecoration: 'none', color: 'black' }}>
 			<Container id="tile" className='p-0 d-flex'>
-				<img className='border me-2 mb-2' src={profileUser?.avatar} alt={profileUser?.username} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
-				<p>{notification.sentUsername} đã {notification.type === "like" ? "thích" : "bình luận"} bài viết của bạn</p>
+				<img className='border me-2 mb-2' src={profileUser?.avatar} alt={profileUser?.username} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover',border: '2px solid #aaa !important' }} />
+				<p>{notification.sentUsername} {notification.type === "like" ? "liked" : "commented"} your post</p>
 			</Container>
 		</Link>
 	);

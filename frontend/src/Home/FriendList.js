@@ -31,13 +31,29 @@ export default function FriendList({ conversations, setConversations}) {
 
   return (
     <Container>
-      <h4>Danh sách bạn bè</h4>
+      <h4 style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '25px' }}>Friends List</h4>
       {friends.map(friend => (
-        <Container key={friend.id} className='d-flex border p-1 rounded-2 mb-3' style={{cursor: 'pointer'}} onClick={() => handleNewMessage(friend.id)}>
-          <img src={friend.avatar} alt='avatar' style={{ width: '40px', borderRadius: '50%' }} />
-          <h5 className='align-self-center ms-2'>{friend.firstName + " " + friend.lastName}</h5>
-        </Container>
+        <div 
+          key={friend.id} 
+          className='d-flex p-1 rounded-2 mb-3' 
+          style={{ cursor: 'pointer', border: 'none' }} // Loại bỏ viền của div
+          onClick={() => handleNewMessage(friend.id)}
+        >
+          <img 
+            src={friend.avatar} 
+            alt='avatar' 
+            style={{ 
+              width: '40px', 
+              borderRadius: '50%', 
+              border: '1px solid #aaa' // Giữ viền cho ảnh
+            }} 
+          />
+          <h5 className='align-self-center ms-2' style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '16px' }}>
+            {friend.firstName + " " + friend.lastName}
+          </h5>
+        </div>
       ))}
     </Container>
+
   )
 }

@@ -18,8 +18,8 @@ export default function NotificationsContainer() {
 	}, [])
 
   return (
-    <Container className='border rounded z-1' style={{position: "fixed", top: '70px', right: '10px', width: '300px', backgroundColor: '#fff'}}>
-			<h3>Thông báo</h3>
+    <Container className='border rounded z-1' style={{position: "fixed", top: '70px', right: '10px', width: '300px', backgroundColor: '#e0e0e0'}}>
+			<h3>Notification</h3>
 			{notifications.map((notification, index) => (
 				<NotificationTile key={index} notification={notification} />
 			))}

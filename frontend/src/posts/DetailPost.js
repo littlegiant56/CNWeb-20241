@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container, Card, Col } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import { getPostById, getProfileByUserId, removeLikePost } from '../services/API';
 import { socket } from '../socket'
@@ -78,10 +78,10 @@ export default function DetailPost() {
     post && 
     <Container className='w-75'>
       <Card className='mb-2'>
-        <Card.Header>
+        <Card.Header style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
           <Container className='d-flex justify-content-between p-0'>
             <Col className='d-flex'>
-              <img src={avatarImgLink} alt='avatar' style={{width: '40px', borderRadius: '50%' }} />
+              <img src={avatarImgLink} alt='avatar' style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' ,border: '1px solid #aaa'}} />
               <Link to={`/profile/${post.userId}`} style={{textDecoration: 'none', color: 'black'}}>
                 <h5 className='align-self-center ms-2'>{name}</h5>
               </Link>
@@ -91,7 +91,7 @@ export default function DetailPost() {
             </Col>
           </Container>
         </Card.Header>
-        <Card.Body>
+        <Card.Body style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
           <Card.Text>
             {post.body}
           </Card.Text>
@@ -99,7 +99,7 @@ export default function DetailPost() {
           {post.video && <video className='border' src={post.video} controls width="100%" />}
           {post.sharedPostId && <SharedPostCard postId={post.sharedPostId} />}
         </Card.Body>
-        <Card.Footer>
+        <Card.Footer style={{ backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
           <Container className='d-flex justify-content-between align-items-center'>
             <Col className='d-flex align-items-center '>
               <FontAwesomeIcon

@@ -29,11 +29,11 @@ export default function SharedPostCard({ postId }) {
   return (
     <Link to={`/post/${postId}`} className='text-decoration-none text-dark'>
       <Card>
-        <Card.Header>
-          <Image className='me-2' src={userProfile?.avatar} roundedCircle style={{ width: '30px', height: '30px' }} />
+        <Card.Header style={{backgroundColor: '#fff', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
+          <Image className='me-2' src={userProfile?.avatar} roundedCircle style={{ width: '30px', height: '30px',border: '1px solid #aaa' }} />
           <span className='ml-2'>{userProfile?.firstName} {userProfile?.lastName}</span>
         </Card.Header>
-        <Card.Body>
+        <Card.Body style={{backgroundColor: '#fff', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
           <Card.Text>
             {sharedPost?.body}
           </Card.Text>

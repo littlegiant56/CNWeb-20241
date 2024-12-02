@@ -41,10 +41,10 @@ export default function SharePostModal({ show, handleClose, postId }) {
         <Modal.Title>Share this post</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <textarea className='form-control mb-2' style={{border: 0}} value={body} onChange={e => setBody(e.target.value)} placeholder='Chia sẻ ...'/>
+        <textarea className='form-control mb-2' style={{border: 0}} value={body} onChange={e => setBody(e.target.value)} placeholder='Share ...'/>
         <Card>
           <Card.Header>
-            <Image className='me-2' src={userProfile?.avatar} roundedCircle style={{ width: '30px', height: '30px' }} />
+            <Image className='me-2' src={userProfile?.avatar} roundedCircle style={{ width: '30px', height: '30px',border: '1px solid #aaa' }} />
             <span className='ml-2'>{userProfile?.firstName} {userProfile?.lastName}</span>
           </Card.Header>
           <Card.Body>

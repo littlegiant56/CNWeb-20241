@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Navbar from './components/Navbar'
@@ -13,7 +14,7 @@ export default function Layout() {
   const [conversations, setConversations] = useState([]);
   const [doesNotificationContainerOpen, setDoesNotificationContainerOpen] = useState(false);
   const [doseMessageListOpen, setDoseMessageListOpen] = useState(false);
-
+  const location = useLocation();
   useEffect(() => {
     Notification.requestPermission();
     // Configure socket.io connection
@@ -41,6 +42,8 @@ export default function Layout() {
       socket.off('createComment')
     }
   }, [socket])
+
+  const isProfileOrFriendRequestPage = location.pathname.startsWith('/profile') || location.pathname === '/friendRequest';
   return (
     <Container fluid className='p-0 position-relative'>
         <Navbar
@@ -50,15 +53,19 @@ export default function Layout() {
         setDoseMessageListOpen={setDoseMessageListOpen}
       />
         <Container className='p-0 pt-2 position-relative' fluid>
-            <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', left: '0px' }}>
-               <ProfileCard />
-            </Container>
+        {!isProfileOrFriendRequestPage && (
+          <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', left: '0px' }}>
+            <ProfileCard />
+          </Container>
+        )}
             <Container className='p-0' style={{ width: '60%' }}>
                 <Outlet />
             </Container>
-            <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', right: '0px' }}>
-              <FriendList conversations={conversations} setConversations={setConversations} />
-            </Container>
+            {!isProfileOrFriendRequestPage && (
+          <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', right: '0px' }}>
+            <FriendList conversations={conversations} setConversations={setConversations} />
+          </Container>
+        )}
         </Container>
         {doesNotificationContainerOpen && <NotificationsContainer />}
         {doseMessageListOpen && <ConversationList conversations={conversations} setConversations={setConversations}/>}
