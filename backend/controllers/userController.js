@@ -123,7 +123,6 @@ export const getUserProfileById = async (req, res) => {
 // POST /updateProfile/:idUser
 export const updateProfile = async (req, res) => {
   const docRef = doc(db, "profiles", req.params.idUser);
-  console.log(docRef);
   const docSnap = await getDoc(docRef);
   const storage = getStorage();
   const cover_storageRef = ref(storage, `covers/${req.params.idUser}`);
