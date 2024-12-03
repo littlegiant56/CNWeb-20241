@@ -8,7 +8,7 @@ import { acceptFriendRequest, checkExistFriendRequest, createFriendRequest, decl
 import add_friend from '../assets/icons/add_friend.png'
 import Post from '../posts/Post';
 import { toast } from 'react-toastify';
-
+import '../app.css'
 
 export default function Profile() {
 
@@ -42,52 +42,40 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    setUserPosts([])
-    // const userId = localStorage.getItem('userId')
-    // Fetch user profile from API
+    setUserPosts([]); // Xóa danh sách bài viết cũ khi id thay đổi
     getProfileByUserId(id)
       .then(res => {
-        setProfile(res.data.user)
+        setProfile(res.data.user);
       })
-      .catch(err => {
-        console.log(err)
-      })
-      getPostByUserId(id)
+      .catch(err => console.log(err));
+  
+    getPostByUserId(id)
       .then(res => {
-        const posts = res.data.data.map(doc => ({
-          id: doc.id, 
-          ...doc.data
-        }));
+        const posts = res.data.data.map(doc => ({ id: doc.id, ...doc.data }));
         setUserPosts(posts);
       })
-      .catch(err => {
-        console.log(err)
-      })
-    // Kiểm tra xem có phải là bạn bè không
+      .catch(err => console.log(err));
+  
+    // Các đoạn mã kiểm tra bạn bè và lời mời kết bạn như cũ
     getProfileByUserId(localStorage.getItem('userId'))
-    .then(res => {
-      setIsFriend(res.data.user.friendList.includes(id))
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    // Kiểm tra xem đã gửi lời mời kết bạn chưa
+      .then(res => {
+        setIsFriend(res.data.user.friendList.includes(id));
+      })
+      .catch(err => console.log(err));
+  
     checkExistFriendRequest(localStorage.getItem('userId'), id)
-    .then(res => {
-      setIsFriendRequestSent(res.data.status)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    // Kiểm tra xem đã nhận được lời mời kết bạn chưa
+      .then(res => {
+        setIsFriendRequestSent(res.data.status);
+      })
+      .catch(err => console.log(err));
+  
     checkExistFriendRequest(id, localStorage.getItem('userId'))
-    .then(res => {
-      setIsFriendRequestReceived(res.data.status)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }, [id])
+      .then(res => {
+        setIsFriendRequestReceived(res.data.status);
+      })
+      .catch(err => console.log(err));
+  }, [id]);
+  
 
 
   return (
@@ -96,10 +84,10 @@ export default function Profile() {
         <Image
           className='rounded-bottom'
           src={profile.cover}
-          style={{ width: 1000, height: 350, objectFit: 'cover' }}
+          style={{ width: 1000, height: 350, objectFit: 'cover',border: '1px solid #aaa' }}
           fluid
         />
-        {id == localStorage.getItem('userId') ?
+        {id === localStorage.getItem('userId') ?
           <UpdateProfile /> :
           !isFriend && 
           (isFriendRequestReceived 
@@ -129,16 +117,16 @@ export default function Profile() {
       <Container className='d-flex mt-3' style={{ width: 1000, position: 'relative' }} fluid>
       <Image
           src={profile.avatar}
+          className='avatar-img'
           style={{
             width: '200px',
-            height: '200px',
+            height: '160px',
             position: 'relative',
             top: '-100px',
             left: '30px',
             objectFit: 'cover',
             backgroundColor: 'white',
-            borderRadius: '50% !important' ,
-            border:'1px solid orange'  
+            border:'1px solid #aaa'  
           }}
         />
         <Container >
@@ -148,10 +136,10 @@ export default function Profile() {
       </Container>
       <Container style={{ width: 1000 }}>
         <Row>
-          <Col className='m-0 w-50'>
+          <Col className='m-0 w-30'>
             <ProfileSideBar userId={id} />
           </Col>
-          <Col className='w-50'>
+          <Col className='w-70'>
             {userPosts.length > 0 && userPosts.map((post, index) => (
               <Post key={index} post={post}/>
             ))}
