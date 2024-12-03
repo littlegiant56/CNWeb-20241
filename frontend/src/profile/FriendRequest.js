@@ -113,7 +113,7 @@ export default function FriendRequest() {
   }, [userId]);
 
   return (
-    <div className="mt-4">
+    <div className="mt-4" style={{height:'600px'}}>
       <h1 className="text-center mb-4">Friend Request</h1>
       <div
         className="d-flex overflow-auto"

@@ -52,7 +52,7 @@ export function CreatePost({ posts, setPosts }) {
 
   return (
     isLoading ? <Spinner animation='border' />
-    : <Form className='mb-4 border' onSubmit={handleCreatePost}>
+    : <Form className='mb-4 border' onSubmit={handleCreatePost} style={{backgroundColor: '#fff', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)'}}>
       <textarea className="form-control mb-2" placeholder="What are you thinking?" style={{ height: "100px", border: 0 }} value={body} onChange={e => setBody(e.target.value)}/>
       {selectedImage.length > 0 &&
         <Container className='d-inline-flex justify-content-start p-2' style={{ overflowX: 'auto' }}>
@@ -65,7 +65,7 @@ export function CreatePost({ posts, setPosts }) {
           <button style={{ position: 'absolute', top: '-20px', right: '-5px' }} onClick={() => setSelectedVideo(null)} className='btn btn-danger'>X</button>
           <video src={URL.createObjectURL(selectedVideo)} controls width='100%' height='100%' />
         </Container>}
-      <Container className='p-2 d-flex justify-content-between'>
+      <Container className='p-2 d-flex justify-content-between' >
         <Container className='d-flex'>
           <div className='me-3'>
             <label htmlFor='image-upload' style={{ cursor: 'pointer' }}>

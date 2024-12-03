@@ -45,14 +45,14 @@ export default function Layout() {
 
   const isProfileOrFriendRequestPage = location.pathname.startsWith('/profile') || location.pathname === '/friendRequest';
   return (
-    <Container fluid className='p-0 position-relative'>
+    <Container fluid className='p-0 position-relative'style={{backgroundColor:'#f1b472'}}>
         <Navbar
         doesNotificationContainerOpen={doesNotificationContainerOpen} 
         setDoesNotificationContainerOpen={setDoesNotificationContainerOpen} 
         doseMessageListOpen={doseMessageListOpen}
         setDoseMessageListOpen={setDoseMessageListOpen}
       />
-        <Container className='p-0 pt-2 position-relative' fluid>
+        <Container className='p-0 pt-2 position-relative mt-3' fluid>
         {!isProfileOrFriendRequestPage && (
           <Container className='p-0 position-fixed mt-4' style={{ width: '20%', top: '75px', left: '0px' }}>
             <ProfileCard />

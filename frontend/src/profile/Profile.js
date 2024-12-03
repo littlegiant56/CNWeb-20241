@@ -136,10 +136,10 @@ export default function Profile() {
       </Container>
       <Container style={{ width: 1000 }}>
         <Row>
-          <Col className='m-0 w-50'>
+          <Col className='m-0 w-30'>
             <ProfileSideBar userId={id} />
           </Col>
-          <Col className='w-50'>
+          <Col className='w-70'>
             {userPosts.length > 0 && userPosts.map((post, index) => (
               <Post key={index} post={post}/>
             ))}

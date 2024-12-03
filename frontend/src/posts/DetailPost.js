@@ -76,7 +76,7 @@ export default function DetailPost() {
 
   return (
     post && 
-    <Container className='w-75'>
+    <Container className='w-75' style={{height:'615px'}}>
       <Card className='mb-2'>
         <Card.Header style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
           <Container className='d-flex justify-content-between p-0'>

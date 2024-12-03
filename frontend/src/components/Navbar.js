@@ -30,11 +30,26 @@ export default function NavBar({ doesNotificationContainerOpen, setDoesNotificat
   }
 
   return (
-    <Container className='p-2 border-bottom sticky-top' fluid style={{ backgroundColor: '#fff' }}>
+    <Container className='p-2 border-bottom sticky-top' fluid style={{ backgroundColor: '#e0e0e0',boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Row className='align-items-center'>
         <Col className='col-3 d-flex align-items-center'>
-          <Link className='me-0' to={'/'}>
-            <img src={logo} alt="Logo" style={{ width: '50px', height: '50px' }} />
+          <Link className='me-0' to={'/'} style={{ backgroundColor: '#e0e0e0'}}>
+          <div style={{
+    backgroundColor: '#e0e0e0',  // Màu nền bạn muốn
+    width: '50px',
+    height: '50px',
+    display: 'flex',
+    alignItems: 'center',  // Canh giữa theo chiều dọc
+    justifyContent: 'center',  // Canh giữa theo chiều ngang
+    borderRadius: '50%'  // Nếu muốn làm tròn nền ảnh
+  }}>
+    <img src={logo} alt="Logo" style={{
+      width: '50px',
+      height: '50px',
+      objectFit: 'cover',  // Đảm bảo ảnh không bị méo
+      borderRadius: '50%'  // Làm tròn ảnh nếu muốn
+    }} />
+  </div>
           </Link>
           <SearchBar />
         </Col>
