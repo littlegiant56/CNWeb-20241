@@ -19,7 +19,7 @@ export default function SignUp() {
     e.preventDefault();
     setErrorMessage("");
     if (password !== confirmPassword) {
-      setErrorMessage("Mật khẩu không khớp");
+      setErrorMessage("Passwords do not match");
       return;
     }
     // Call API to register
@@ -27,19 +27,19 @@ export default function SignUp() {
       .then(res => {
         if (res.status === 200) {
           if (res.data.status) {
-            toast.success(res.data.message);
+            toast.success(res.data.message,{ autoClose: 3000 });
             navigate('/setup-account', { state: { user: res.data.user } });
           } else {
-            toast.error(res.data.message);
+            toast.error(res.data.message,{ autoClose: 3000 });
           }
         } else {
           console.log("dky loi")
-          setErrorMessage("Đăng ký thất bại");
+          setErrorMessage("Registration failed");
         }
       })
       .catch(err => {
         console.log("asdasd")
-        setErrorMessage("Đăng ký thất bại");
+        setErrorMessage("Registration failed");
       });
   };
 
@@ -47,7 +47,7 @@ export default function SignUp() {
     <div className='signup-login'>
       <Container className='container-lg shadow border p-4 pb-0 rounded-2' style={{ width: '450px', marginTop: '20px' ,color: 'white'}} >
         <Form className='d-flex flex-column' onSubmit={handleSubmit}>
-          <h1 className='align-self-center'>Đăng ký tài khoản</h1>
+          <h1 className='align-self-center'>Sign up</h1>
           <FormGroup className='mb-2'>
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -59,12 +59,12 @@ export default function SignUp() {
             />
           </FormGroup>
           <FormGroup className='mb-2 position-relative'>
-            <Form.Label>Mật khẩu</Form.Label>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               value={password}
               onChange={e => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
-              placeholder='Mật khẩu'
+              placeholder='Password'
               required
             />
             <span
@@ -81,12 +81,12 @@ export default function SignUp() {
             </span>
           </FormGroup>
           <FormGroup className='mb-3 position-relative'>
-            <Form.Label>Xác nhận mật khẩu</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
               type={showConfirmPassword ? "text" : "password"}
-              placeholder='Xác nhận mật khẩu'
+              placeholder='Confirm Password'
               required
             />
             {/* <span
@@ -114,8 +114,8 @@ export default function SignUp() {
             </span>
           </FormGroup>
           {errorMessage && <p className='text-danger'>{errorMessage}</p>}
-          <Button className='signup-login-button align-self-center mb-2' type='submit' style={{ width: '120px'}}>Đăng ký</Button>
-          <p className='align-self-center'>Bạn đã có tài khoản? <Link to='/login'>Đăng nhập</Link></p>
+          <Button className='signup-login-button align-self-center mb-2' type='submit' style={{ width: '120px'}}>Register</Button>
+          <p className='align-self-center'>Already have an account? <Link to='/login'>Login</Link></p>
         </Form>
       </Container>
     </div>

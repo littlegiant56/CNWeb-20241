@@ -62,7 +62,7 @@ export const createPost = async (req, res) => {
         }).then((docRef) => {
             res.status(200).json({
                 status: true,
-                message: "Tạo bài đăng thành công.",
+                message: "Post created successfully.",
                 post: {
                     body: body,
                     image: imageStorageURL,

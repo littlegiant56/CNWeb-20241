@@ -37,7 +37,7 @@ export function CreatePost({ posts, setPosts }) {
     formData.append('userId', localStorage.getItem('userId'));
     createPost(formData)
       .then(data => {
-        toast.success(data.data.message);
+        toast.success(data.data.message,{ autoClose: 3000 });
         setPosts([data.data.post, ...posts]);
         // Khởi tạo lại giá trị cho các state
         setBody("");

@@ -19,11 +19,11 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Add new friend successfully");
+        toast.success("Add new friend successfully",{ autoClose: 3000 });
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("An error occurred. Please try again.");
+        toast.error("An error occurred. Please try again.",{ autoClose: 3000 });
       });
   };
 
@@ -33,11 +33,11 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Delete friend request successfully");
+        toast.success("Delete friend request successfully",{ autoClose: 3000 });
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("An error occurred. Please try again.");
+        toast.error("An error occurred. Please try again.",{ autoClose: 3000 });
       });
   };
 

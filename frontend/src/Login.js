@@ -33,12 +33,12 @@ export default function Login() {
           }
         }
         else {
-          setErrorMessage('Đăng nhập thất bại')
+          setErrorMessage('Login failed')
         }
       })
       .catch(err => {
         console.log(err)
-        setErrorMessage('Lỗi không xác định')
+        setErrorMessage('Unknown error')
       })
   }
 
@@ -46,16 +46,16 @@ export default function Login() {
     <div className='signup-login'>
       <Container className='container-lg shadow border p-4 pb-0 rounded-2' style={{width: '450px', marginTop: '30px',color: 'white'}}>
         <Form className='d-flex flex-column' onSubmit={handleSubmit}>
-          <h1 className='align-self-center'>Đăng nhập</h1>
+          <h1 className='align-self-center'>Log in</h1>
           <FormGroup className='mb-2'>
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" placeholder='Email' required value={email} onChange={e => setEmail(e.target.value)} />
           </FormGroup>
           <FormGroup className='mb-3 position-relative'>
-            <Form.Label>Mật khẩu</Form.Label>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               type={showPassword ? "text" : "password"} // Hiển thị mật khẩu hoặc ẩn
-              placeholder='Mật khẩu'
+              placeholder='Password'
               required
               value={password}
               onChange={e => setPassword(e.target.value)}
@@ -74,8 +74,8 @@ export default function Login() {
             </span>
           </FormGroup>
           {errorMessage.length > 0 && <p className='text-danger'>{errorMessage}</p>}
-          <Button className='signup-login-button align-self-center mb-2' type='submit' style={{width: '150px'}}>Đăng nhập</Button>
-          <p className='align-self-center'>Chưa có tài khoản? <Link to='/sign-up'>Đăng ký</Link></p>
+          <Button className='signup-login-button align-self-center mb-2' type='submit' style={{width: '150px'}}>Login</Button>
+          <p className='align-self-center'>Don't have an account? <Link to='/sign-up'>Register</Link></p>
         </Form>
       </Container>
     </div>

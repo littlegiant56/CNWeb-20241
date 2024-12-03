@@ -36,7 +36,7 @@ export default function UpdateProfile() {
     school && formData.append('school', school);
     updateProfile(userId, formData)
       .then(res => {
-        toast.success(res.data.message)
+        toast.success(res.data.message,{ autoClose: 3000 })
       })
       .catch(err => {
         setErrorMessage(err.message);
@@ -113,7 +113,7 @@ export default function UpdateProfile() {
               </Form.Group>
 
               <Form.Group as={Col} >
-                <Form.Label>Sex</Form.Label>
+                <Form.Label>Gender</Form.Label>
                 <Form.Select defaultValue="">
                   <option>Male</option>
                   <option>Female</option>
