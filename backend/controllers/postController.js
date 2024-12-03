@@ -15,7 +15,6 @@ import {
     startAt,
     Timestamp,
     updateDoc,
-    where
 } from "firebase/firestore"
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 import Randomstring from "randomstring"
