@@ -13,7 +13,7 @@ import CommentSection from '../components/CommentSection'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
 import backIcon from '../assets/icons/back_icon.png'
-
+// imageView
 export default function ImageView() {
 
   const [post, setPost] = useState();
