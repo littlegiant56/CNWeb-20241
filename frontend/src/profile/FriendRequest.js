@@ -19,11 +19,11 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Thêm bạn mới thành công");
+        toast.success("Add new friend successfully");
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("Có lỗi xảy ra. Vui lòng thử lại.");
+        toast.error("An error occurred. Please try again.");
       });
   };
 
@@ -33,11 +33,11 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Xóa lời mời kết bạn thành công");
+        toast.success("Delete friend request successfully");
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("Có lỗi xảy ra. Vui lòng thử lại.");
+        toast.error("An error occurred. Please try again.");
       });
   };
 
@@ -114,7 +114,7 @@ export default function FriendRequest() {
 
   return (
     <div className="mt-4">
-      <h1 className="text-center mb-4">Lời mời kết bạn</h1>
+      <h1 className="text-center mb-4">Friend Request</h1>
       <div
         className="d-flex overflow-auto"
         style={{
@@ -132,7 +132,7 @@ export default function FriendRequest() {
             />
           ))
         ) : (
-          <p className="text-center w-100">Không có lời mời kết bạn nào.</p>
+          <p className="text-center w-100">No friend requests yet.</p>
         )}
       </div>
     </div>

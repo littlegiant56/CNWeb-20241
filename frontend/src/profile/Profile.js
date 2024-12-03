@@ -38,7 +38,7 @@ export default function Profile() {
     acceptFriendRequest({ friendId: localStorage.getItem('userId'), userId: id })
     setIsFriendRequestReceived(false)
     setIsFriend(true)
-    toast.success("Thêm bạn mới thành công")
+    toast.success("Add new friend successfully")
   }
 
   useEffect(() => {
@@ -104,21 +104,21 @@ export default function Profile() {
             ? <Container>
                 <Button variant='success' style={{ position: 'absolute', bottom: 10, right: 20 }} onClick={handleAcceptFriendRequest}>
                   <Image src={add_friend} style={{ width: 20, marginRight: 10 }}></Image>
-                  Chấp nhận kết bạn
+                  Accept friend request
                 </Button>
                 <Button className='btn-danger' style={{ position: 'absolute', bottom: 10, right: 230 }} onClick={handleDeclineFriendRequest}>
                   <Image src={add_friend} style={{ width: 20, marginRight: 10 }}></Image>
-                  Từ chối kết bạn
+                  Refused to be friends
                 </Button>
               </Container>
             : (!isFriendRequestSent 
               ? <Button variant='primary' style={{ position: 'absolute', bottom: 10, right: 20 }} onClick={handleSendFriendRequest}>
                   <Image src={add_friend} style={{ width: 20, marginRight: 10 }}></Image>
-                  Kết bạn
+                  Make friend
                 </Button> 
               : <Button className='btn-danger' style={{ position: 'absolute', bottom: 10, right: 20 }} onClick={handleRemoveFriendRequest}>
                   <Image src={add_friend} style={{ width: 20, marginRight: 10 }}></Image>
-                  Huỷ lời mời kết bạn
+                  Cancel friend request
                 </Button>
               )
           )
@@ -126,19 +126,18 @@ export default function Profile() {
       </Container>
       <Container className='d-flex mt-3' style={{ width: 1000, position: 'relative' }} fluid>
       <Image
-  src={profile.avatar}
-  style={{
-    width: '200px',
-    height: '200px',
-    position: 'relative',
-    top: '-100px',
-    left: '30px',
-    objectFit: 'cover',
-    backgroundColor: 'white',
-    borderRadius: '50% !important' , // Đảm bảo borderRadius hoạt động
-    overflow: 'hidden', 
-    border:'1px solid red'  // Cắt nội dung thừa
-  }}
+          src={profile.avatar}
+          style={{
+            width: '200px',
+            height: '200px',
+            position: 'relative',
+            top: '-100px',
+            left: '30px',
+            objectFit: 'cover',
+            backgroundColor: 'white',
+            borderRadius: '50% !important' ,
+            border:'1px solid orange'  
+          }}
         />
         <Container >
           <p className='ps-5' style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '35px' }}>{profile.firstName + " " + profile.lastName}</p>

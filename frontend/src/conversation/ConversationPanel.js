@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Button, Container, Image } from 'react-bootstrap'
 import { getConversationMessages, getMessagesConversationByOffset, getProfileByUserId, markConversationAsRead } from '../services/API'
 import { socket } from '../socket';
-import send from '../assets/icons/send.png';
+import { FaTimes } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function ConversationPanel({ conversation, conversations, setConversations }) {
@@ -29,7 +30,7 @@ export default function ConversationPanel({ conversation, conversations, setConv
 
   // Send message to server
   const handleSendMessage = () => {
-    if(message.length == 0) return;
+    if(message.length === 0) return;
     const newMessage = {
       sentUsername: localStorage.getItem('username'),
       sentUserId: localStorage.getItem('userId'),
@@ -76,10 +77,12 @@ export default function ConversationPanel({ conversation, conversations, setConv
 
   return (
     receivedUserProfile && <Container className='border p-1 rounded-2 m-0 mb-3 bg-white' style={{width: '300px'}}>
-      <Container className='d-flex p-0'>
-        <img src={receivedUserProfile?.avatar} alt='avatar' style={{ width: '40px', borderRadius: '50%' }} />
+      <Container className='d-flex p-0 mt-1 mb-1'>
+        <img src={receivedUserProfile?.avatar} alt='avatar' style={{ width: '45px', borderRadius: '50%' ,border: '1px solid #aaa'}} />
         <h5 className='align-self-center ms-2'>{receivedUserProfile?.firstName + " " + receivedUserProfile?.lastName}</h5>
-        <Button variant='danger' className='ms-auto' onClick={handleCloseMessage}>X</Button>
+        <Button  className="mb-2 ms-auto" onClick={handleCloseMessage} style={{ backgroundColor: 'transparent', border: 'none' }}>
+          <FaTimes style={{ color: '#808080' }}/> {/* Sử dụng icon từ React Icons */}
+        </Button>
       </Container>
       <Container id="message-panel" className='border rounded-2 p-1 mb-2' style={{height: '300px', overflow: 'auto', display: 'flex', flexDirection: 'column-reverse'}}>
         <InfiniteScroll
@@ -100,11 +103,15 @@ export default function ConversationPanel({ conversation, conversations, setConv
           }
         </InfiniteScroll>
       </Container>
-      <Container className='p-0 d-flex'>
+      <Container className='p-0 d-flex mb-2'>
         <input value={message} onChange={e => setMessage(e.target.value)} type='text' className='form-control me-2' onKeyDown={e => {
           if(e.key === 'Enter') handleSendMessage();
         }} onFocus={handleMarkConversationAsRead}/>
-        <Image style={{height: '30px', cursor: 'pointer'}} src={send} onClick={handleSendMessage}/>
+        <FaPaperPlane 
+        className='mt-1'
+        style={{ fontSize: '24px', cursor: 'pointer', color: '#007bff' }} // Icon có màu và kích thước tùy chỉnh
+        onClick={handleSendMessage}
+      />
       </Container>
     </Container>
   )

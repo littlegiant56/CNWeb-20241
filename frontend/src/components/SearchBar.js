@@ -46,7 +46,7 @@ export default function SearchBar() {
         <Form.Control
           className="rounded-pill"
           type="text"
-          placeholder="Tìm kiếm"
+          placeholder="Search"
           style={{ height: "50px" }}
           value={query}
           onChange={handleInputChange}
@@ -64,7 +64,7 @@ export default function SearchBar() {
           }}
         >
           {loading ? (
-            <ListGroup.Item>Đang tìm kiếm...</ListGroup.Item>
+            <ListGroup.Item>Searching...</ListGroup.Item>
           ) : suggestions.length > 0 ? (
             suggestions.map((user) => (
               <ListGroup.Item
@@ -87,7 +87,7 @@ export default function SearchBar() {
               </ListGroup.Item>
             ))
           ) : (
-            <ListGroup.Item>Không tìm thấy kết quả nào.</ListGroup.Item>
+            <ListGroup.Item>No results found.</ListGroup.Item>
           )}
         </ListGroup>
       )}

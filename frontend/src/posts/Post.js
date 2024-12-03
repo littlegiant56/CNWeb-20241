@@ -60,7 +60,7 @@ export default function Post({ post }) {
       <Card.Header style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
         <Container className='d-flex justify-content-between p-0'>
           <Col className='d-flex'>
-            <img src={avatarImgLink} alt='avatar' style={{ width: '40px', borderRadius: '50%', objectFit: 'cover' }} />
+            <img src={avatarImgLink} alt='avatar' style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' ,border: '1px solid #aaa' }} />
             <Link to={`/profile/${post.userId}`} style={{textDecoration: 'none', color: 'black'}} className='align-self-center ms-2'>
               <h5 className='m-0' style={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '18px' }}>
                 {name}
@@ -98,8 +98,10 @@ export default function Post({ post }) {
             <p className=' m-0'>{likeCount} Like</p>
           </Col>
           <Col className='d-flex align-items-center justify-content-center' >
-            <FontAwesomeIcon icon={faComment} className='me-2' />
-            <p className=' m-0'>{commentCount} Comment</p>
+            <Link className='d-flex align-items-center justify-content-center' to={`/post/${post.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <FontAwesomeIcon icon={faComment} className='me-2' />
+              <p className=' m-0'>{commentCount} Comment</p>
+            </Link>
           </Col>
           <Col className='d-flex align-items-center justify-content-end'>
             <FontAwesomeIcon icon={faShare} className='me-2' style={{cursor: 'pointer'}} onClick={handleSharePost} />

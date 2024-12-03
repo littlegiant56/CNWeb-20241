@@ -11,6 +11,7 @@ import Profile from './profile/Profile';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import FriendRequest from './profile/FriendRequest';
+import SearchResult from './SearchResult';
 function App() {
   useEffect(()=>{
     console.log("name App","4353")
@@ -27,6 +28,7 @@ function App() {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/post/:id" element={<DetailPost />} />
           <Route path='/friendRequest' element={<FriendRequest />} />
+          <Route path="search" element={<SearchResult />} />
         </Route>
         <Route path="/new-feed" element={<NewFeeds />} />
       </Routes>

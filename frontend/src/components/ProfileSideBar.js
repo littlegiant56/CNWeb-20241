@@ -32,40 +32,40 @@ function ProfileSideBar({ userId }) {
     >
       {profile && (
         <>
-          <h4>Mô tả bản thân</h4>
+          <h4>Description yourself</h4>
           {profile.description && (
             <p>
-              <span className="fw-semibold">Giới thiệu: </span>
+              <span className="fw-semibold">Introduce: </span>
               {profile.description}
             </p>
           )}
           {profile.address && (
             <p>
-              <span className="fw-semibold">Nơi ở: </span>
+              <span className="fw-semibold">Lives in: </span>
               {profile.address}
             </p>
           )}
           {profile.DOB && (
             <p>
-              <span className="fw-semibold">Ngày sinh: </span>
+              <span className="fw-semibold">Date of birth: </span>
               {profile.DOB}
             </p>
           )}
           {profile.school && (
             <p>
-              <span className="fw-semibold">Học tại: </span>
+              <span className="fw-semibold">Study/Work at: </span>
               {profile.school}
             </p>
           )}
           {profile.work && (
             <p>
-              <span className="fw-semibold">Làm việc tại: </span>
+              <span className="fw-semibold">Work: </span>
               {profile.work}
             </p>
           )}
         </>
       )}
-      <Container className="mt-4">
+      {/* <Container className="mt-4">
         <h4>Danh sách bạn bè</h4>
         {friends?.length > 0 ? (
           <Row className="g-3">
@@ -98,7 +98,7 @@ function ProfileSideBar({ userId }) {
         ) : (
           <p>Chưa có bạn bè nào.</p>
         )}
-      </Container>
+      </Container> */}
     </Container>
   );
 }
