@@ -54,7 +54,7 @@ export default function Layout() {
       />
         <Container className='p-0 pt-2 position-relative' fluid>
         {!isProfileOrFriendRequestPage && (
-          <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', left: '0px' }}>
+          <Container className='p-0 position-fixed mt-4' style={{ width: '20%', top: '75px', left: '0px' }}>
             <ProfileCard />
           </Container>
         )}
@@ -62,7 +62,7 @@ export default function Layout() {
                 <Outlet />
             </Container>
             {!isProfileOrFriendRequestPage && (
-          <Container className='p-0 position-fixed' style={{ width: '20%', top: '75px', right: '0px' }}>
+          <Container className='p-0 position-fixed mt-4' style={{ width: '20%', top: '75px', right: '0px' }}>
             <FriendList conversations={conversations} setConversations={setConversations} />
           </Container>
         )}
