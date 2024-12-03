@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { getProfileByUserId } from '../services/API';
 
-export function ConversationTile({ conversation, conversations, setConversations }) {
+export function ConversationTile({ conversation, conversations, setConversations, onConversationClick }) {
 
   const [userProfile, setUserProfile] = useState();
   const [friendId, setFriendId] = useState();
@@ -36,8 +36,15 @@ export function ConversationTile({ conversation, conversations, setConversations
       });
   }, [conversation]);
 
+  const handleClickConversation = () => {
+    if (onConversationClick) {
+      onConversationClick(); // Đóng danh sách cuộc trò chuyện khi người dùng nhấp vào cuộc trò chuyện
+    }
+    handleNewConversation(friendId); // Mở cuộc trò chuyện với người bạn
+  };
+
   return (
-    userProfile && <Container className='d-flex p-0' onClick={() => handleNewConversation(friendId)}>
+    userProfile && <Container className='d-flex p-0' onClick={handleClickConversation}>
       <img src={userProfile?.avatar} alt={userProfile?.username} style={{ width: '60px', height: '47px', borderRadius: '50%', objectFit: 'cover' }} />
       <Container className='d-flex' >
         <Container className='p-0'>
