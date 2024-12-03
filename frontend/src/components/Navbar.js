@@ -1,33 +1,63 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, NavDropdown } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faBell, faPlay, faPlusSquare, faHeart, faUserFriends, faUser, faHome } from '@fortawesome/free-solid-svg-icons'
-import { Link, useNavigate } from 'react-router-dom'
-import logo from '../assets/icons/logo2.jpg'
-import { socket } from '../socket'
-import SearchBar from './SearchBar'
+import React, { useState } from "react";
+import { Container, Row, Col, NavDropdown } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faBell,
+  faPlay,
+  faPlusSquare,
+  faHeart,
+  faUserFriends,
+  faUser,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/icons/logo2.jpg";
+import { socket } from "../socket";
+import SearchBar from "./SearchBar";
 
-/**
- * Represents the navigation bar component.
- * @returns {JSX.Element} The JSX element representing the navigation bar.
- */
-export default function NavBar({ doesNotificationContainerOpen, setDoesNotificationContainerOpen, doseMessageListOpen, setDoseMessageListOpen }) {
-  const navigate = useNavigate()
+export default function NavBar({
+  doesNotificationContainerOpen,
+  setDoesNotificationContainerOpen,
+  doseMessageListOpen,
+  setDoseMessageListOpen,
+}) {
+  const navigate = useNavigate();
 
-  // Các state để theo dõi icon nào được chọn
-  const [selectedIcon, setSelectedIcon] = useState(null)
+  const [selectedIcon, setSelectedIcon] = useState("home");
 
   const handleLogout = () => {
-    localStorage.removeItem('userId');
-    // Disconnect socket.io connection
+    localStorage.removeItem("userId");
     socket.disconnect();
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
-  // Hàm để thay đổi màu sắc của icon khi nhấn
   const handleIconClick = (icon) => {
-    setSelectedIcon(icon === selectedIcon ? null : icon); // Toggle the selected icon
-  }
+    setSelectedIcon(icon === selectedIcon ? null : icon);
+  };
+
+  const handleToProfile = () => {
+    navigate(`/profile/${localStorage.getItem("userId")}`);
+  };
+
+  const iconStyle = (icon) => ({
+    fontSize: "25px",
+    color: selectedIcon === icon ? "blue" : "black",
+    cursor: "pointer",
+    transition: "transform 0.2s ease, background-color 0.3s ease",
+    padding: "10px",
+    borderRadius: "50%", // Hình tròn bao quanh khi hover
+    backgroundColor: selectedIcon === icon ? "#e6f7ff" : "transparent",
+  });
+
+  const iconHoverStyle = (e, isHover) => {
+    e.currentTarget.style.transform = isHover ? "scale(1.2)" : "scale(1)";
+    e.currentTarget.style.backgroundColor = isHover
+      ? "#e6f7ff"
+      : selectedIcon === e.currentTarget.dataset.icon
+      ? "#e6f7ff"
+      : "transparent";
+  };
 
   return (
     <Container className='p-2 border-bottom sticky-top' fluid style={{ backgroundColor: '#e0e0e0',boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
@@ -53,97 +83,108 @@ export default function NavBar({ doesNotificationContainerOpen, setDoesNotificat
           </Link>
           <SearchBar />
         </Col>
-        <Col className='col-6'>
-          <Link to={`/`} onClick={() => handleIconClick('home')}>
+        <Col className="col-6 d-flex justify-content-center gap-4">
+          <Link to={`/`} onClick={() => handleIconClick("home")}>
             <FontAwesomeIcon
               icon={faHome}
-              style={{
-                fontSize: '25px',
-                marginLeft: '102px',
-                cursor: 'pointer',
-                color: selectedIcon === 'home' ? 'blue' : 'black', // Màu xanh khi chọn
-              }}
+              style={iconStyle("home")}
+              data-icon="home"
+              onMouseEnter={(e) => iconHoverStyle(e, true)}
+              onMouseLeave={(e) => iconHoverStyle(e, false)}
             />
           </Link>
-          <Link to={`/friendRequest`} onClick={() => handleIconClick('friendRequest')}>
+          <Link
+            to={`/friendRequest`}
+            onClick={() => handleIconClick("friendRequest")}
+          >
             <FontAwesomeIcon
               icon={faUserFriends}
-              style={{
-                fontSize: '25px',
-                marginLeft: '85px',
-                color: selectedIcon === 'friendRequest' ? 'blue' : 'black',
-                cursor: 'pointer',
-              }}
+              style={iconStyle("friendRequest")}
+              data-icon="friendRequest"
+              onMouseEnter={(e) => iconHoverStyle(e, true)}
+              onMouseLeave={(e) => iconHoverStyle(e, false)}
             />
           </Link>
           <FontAwesomeIcon
             icon={faPlay}
-            style={{
-              fontSize: '25px',
-              marginLeft: '85px',
-              color: selectedIcon === 'play' ? 'blue' : 'black',
-              cursor: 'pointer',
-            }}
-            onClick={() => handleIconClick('play')}
+            style={iconStyle("play")}
+            data-icon="play"
+            onMouseEnter={(e) => iconHoverStyle(e, true)}
+            onMouseLeave={(e) => iconHoverStyle(e, false)}
+            onClick={() => handleIconClick("play")}
           />
           <FontAwesomeIcon
             icon={faPlusSquare}
-            style={{
-              fontSize: '25px',
-              marginLeft: '85px',
-              color: selectedIcon === 'plus' ? 'blue' : 'black',
-              cursor: 'pointer',
-            }}
-            onClick={() => handleIconClick('plus')}
+            style={iconStyle("plus")}
+            data-icon="plus"
+            onMouseEnter={(e) => iconHoverStyle(e, true)}
+            onMouseLeave={(e) => iconHoverStyle(e, false)}
+            onClick={() => handleIconClick("plus")}
           />
           <FontAwesomeIcon
             icon={faHeart}
-            style={{
-              fontSize: '25px',
-              marginLeft: '85px',
-              color: selectedIcon === 'heart' ? 'blue' : 'black',
-              cursor: 'pointer',
-            }}
-            onClick={() => handleIconClick('heart')}
+            style={iconStyle("heart")}
+            data-icon="heart"
+            onMouseEnter={(e) => iconHoverStyle(e, true)}
+            onMouseLeave={(e) => iconHoverStyle(e, false)}
+            onClick={() => handleIconClick("heart")}
           />
         </Col>
-        <Col className='col-3 d-flex justify-content-end'>
+        <Col className="col-3 d-flex justify-content-end">
           <FontAwesomeIcon
             icon={faEnvelope}
-            style={{
-              fontSize: '25px',
-              cursor: 'pointer',
-              color: selectedIcon === 'envelope' ? 'blue' : 'black',
-            }}
+            style={iconStyle("envelope")}
+            data-icon="envelope"
+            onMouseEnter={(e) => iconHoverStyle(e, true)}
+            onMouseLeave={(e) => iconHoverStyle(e, false)}
             onClick={() => {
-              setDoseMessageListOpen(!doseMessageListOpen)
-              setDoesNotificationContainerOpen(false)
-              handleIconClick('envelope')
+              setDoseMessageListOpen(!doseMessageListOpen);
+              setDoesNotificationContainerOpen(false);
+              handleIconClick("envelope");
             }}
           />
           <FontAwesomeIcon
             icon={faBell}
-            style={{
-              fontSize: '25px',
-              cursor: 'pointer',
-              marginLeft: '25px',
-              color: selectedIcon === 'bell' ? 'blue' : 'black',
-            }}
+            style={iconStyle("bell")}
+            data-icon="bell"
+            onMouseEnter={(e) => iconHoverStyle(e, true)}
+            onMouseLeave={(e) => iconHoverStyle(e, false)}
             onClick={() => {
-              setDoesNotificationContainerOpen(!doesNotificationContainerOpen)
-              setDoseMessageListOpen(false)
-              handleIconClick('bell')
+              setDoesNotificationContainerOpen(!doesNotificationContainerOpen);
+              setDoseMessageListOpen(false);
+              handleIconClick("bell");
             }}
           />
-
           <NavDropdown
-            title={<FontAwesomeIcon icon={faUser} style={{ fontSize: '25px', margin: '0 25px' }} />}
+            title={
+              <FontAwesomeIcon
+                icon={faUser}
+                style={{
+                  fontSize: "25px",
+                  color: "black",
+                  cursor: "pointer",
+                  transition: "transform 0.2s ease, background-color 0.3s ease",
+                  padding: "10px",
+                  borderRadius: "50%",
+                  backgroundColor: selectedIcon === "user" ? "#e6f7ff" : "transparent",
+                }}
+                data-icon="user"
+                onMouseEnter={(e) => iconHoverStyle(e, true)}
+                onMouseLeave={(e) => iconHoverStyle(e, false)}
+              />
+            }
             id="basic-nav-dropdown"
+            align="end" 
           >
-            <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
+            <NavDropdown.Item onClick={handleToProfile}>
+              Profile
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={handleLogout}>
+              Đăng xuất
+            </NavDropdown.Item>
           </NavDropdown>
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
