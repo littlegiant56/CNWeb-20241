@@ -15,6 +15,7 @@ import ImageSlideShow from './ImageSlideShow';
 import SharedPostCard from '../components/SharedPostCard';
 import SharePostModal from '../components/SharePostModal';
 
+// chi tiết bài post
 export default function DetailPost() {
 
   const { id } = useParams()
