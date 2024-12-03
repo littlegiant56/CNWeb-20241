@@ -52,11 +52,13 @@ export default function Profile() {
       .catch(err => {
         console.log(err)
       })
-    getPostByUserId(id)
+      getPostByUserId(id)
       .then(res => {
-        res.data.data.forEach(doc => {
-          setUserPosts(prev => [...prev, {id: doc.id, ...doc.data}])
-        })
+        const posts = res.data.data.map(doc => ({
+          id: doc.id, 
+          ...doc.data
+        }));
+        setUserPosts(posts);
       })
       .catch(err => {
         console.log(err)
