@@ -29,7 +29,7 @@
     transition: all 0.3s ease !important; /* Hiệu ứng chuyển đổi khi hover */
 }
 .avatar-img {
-    width: 50px;
+    width: 40px;
     height: auto;
     border-radius: 50% ;
     object-fit: cover;

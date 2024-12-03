@@ -19,7 +19,11 @@ export default function NewFeeds() {
       .then(res => {
         console.log('nam getPostByOffset')
         res.data.posts.forEach(doc => {
-          setPosts(prev => [...prev, {id: doc.id, ...doc.data}])
+          setPosts(prev => {
+            const newPosts = res.data.posts.map(doc => ({ id: doc.id, ...doc.data }));
+            const uniquePosts = newPosts.filter(newPost => !prev.some(post => post.id === newPost.id));
+            return [...prev, ...uniquePosts];
+          });
         })
         setHasMore(res.data.hasMore)
       })
@@ -29,18 +33,23 @@ export default function NewFeeds() {
   }
 
   useEffect(() => {
+    let isMounted = true;
+  
     getPostByOffset(null, NUMBER_OF_POSTS)
       .then(res => {
-        console.log('nam getPostByOffsetuseEffect')
-        res.data.posts.forEach(doc => {
-          setPosts(prev => [...prev, {id: doc.id, ...doc.data}])
-        })
-        setHasMore(res.data.hasMore)
+        if (isMounted) {
+          const newPosts = res.data.posts.map(doc => ({ id: doc.id, ...doc.data }));
+          setPosts(newPosts);
+          setHasMore(res.data.hasMore);
+        }
       })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [])
+      .catch(error => console.log(error));
+  
+    return () => {
+      isMounted = false; // Hủy bỏ hiệu ứng khi component bị unmount
+    };
+  }, []);
+  
 
 
 
