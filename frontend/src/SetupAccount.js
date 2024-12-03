@@ -39,7 +39,7 @@ export default function SetupAccount() {
     
     updateProfile(user.uid, formData)
     .then(res => {
-      toast.success(res.data.message)
+      toast.success(res.data.message,{ autoClose: 3000 })
       navigate("/login")
     })
     .catch(err => {
@@ -54,88 +54,88 @@ export default function SetupAccount() {
         style={{ width: '500px', marginTop: '25px', color: 'white' }}
       >
         <Form className="d-flex flex-column" onSubmit={handleSubmit}>
-          <h1 className="align-self-center">Thiết lập tài khoản</h1>
+          <h1 className="align-self-center">Set up account</h1>
           
           <FormGroup className="mb-2">
-            <Form.Label>Họ</Form.Label>
+            <Form.Label>FirstName</Form.Label>
             <Form.Control
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               type="text"
-              placeholder="Họ"
+              placeholder="FirstName"
               required
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Tên</Form.Label>
+            <Form.Label>LastName</Form.Label>
             <Form.Control
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               type="text"
-              placeholder="Tên"
+              placeholder="LastName"
               required
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Ngày sinh</Form.Label>
+            <Form.Label>Date of birth</Form.Label>
             <Form.Control
               value={DOB}
               onChange={(e) => setDOB(e.target.value)}
               type="date"
-              placeholder="Ngày sinh"
+              placeholder="Date of birth"
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Địa chỉ</Form.Label>
+            <Form.Label>Address</Form.Label>
             <Form.Control
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               type="text"
-              placeholder="Địa chỉ"
+              placeholder="Address"
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Giới tính</Form.Label>
+            <Form.Label>Gender</Form.Label>
             <Form.Select value={gender} onChange={(e) => setGender(e.target.value)}>
-              <option value="">Chọn giới tính</option>
-              <option value="male">Nam</option>
-              <option value="female">Nữ</option>
-              <option value="other">Khác</option>
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </Form.Select>
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Trường học</Form.Label>
+            <Form.Label>School/Office</Form.Label>
             <Form.Control
               value={school}
               onChange={(e) => setSchool(e.target.value)}
               type="text"
-              placeholder="Trường học"
+              placeholder="School/Office"
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Công việc</Form.Label>
+            <Form.Label>Work</Form.Label>
             <Form.Control
               value={work}
               onChange={(e) => setWork(e.target.value)}
               type="text"
-              placeholder="Công việc"
+              placeholder="Work"
             />
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Mô tả bản thân</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               as="textarea"
               rows={3}
-              placeholder="Mô tả bản thân"
+              placeholder="Description"
             />
           </FormGroup>
           
@@ -149,7 +149,7 @@ export default function SetupAccount() {
           </FormGroup>
           
           <FormGroup className="mb-2">
-            <Form.Label>Ảnh bìa</Form.Label>
+            <Form.Label>Cover photo</Form.Label>
             <Form.Control
               onChange={(e) => setCover(e.target.files[0])}
               type="file"
@@ -160,7 +160,7 @@ export default function SetupAccount() {
           {errorMessage && <p className="text-danger">{errorMessage}</p>}
           
           <Button className="align-self-center mb-2" type="submit" style={{ width: '100px' }}>
-            Xác nhận
+            Confirm
           </Button>
         </Form>
       </Container>

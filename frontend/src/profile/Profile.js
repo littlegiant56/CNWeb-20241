@@ -38,7 +38,7 @@ export default function Profile() {
     acceptFriendRequest({ friendId: localStorage.getItem('userId'), userId: id })
     setIsFriendRequestReceived(false)
     setIsFriend(true)
-    toast.success("Add new friend successfully")
+    toast.success("Add new friend successfully",{ autoClose: 3000 })
   }
 
   useEffect(() => {

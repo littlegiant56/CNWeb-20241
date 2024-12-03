@@ -12,7 +12,7 @@ export default function SharePostModal({ show, handleClose, postId }) {
   const handleSharePost = () => {
     sharePost(postId, { body, userId: localStorage.getItem('userId') })
       .then(res => {
-        toast.success('Share article successfully')
+        toast.success('Share article successfully',{ autoClose: 3000 })
         handleClose()
       })
   }

@@ -36,7 +36,7 @@ export const register = async (req, res, next) => {
           res.status(200).json({
             status: true,
             user: userCredential.user,
-            message: "Đăng ký thành công"
+            message: "Registration successful"
           })
         })
     })
@@ -44,7 +44,7 @@ export const register = async (req, res, next) => {
       if (error.code == 'auth/email-already-in-use') {
         res.status(200).json({
           status: false,
-          message: "Email đã được sử dụng"
+          message: "Email already in use"
         })
       }
       else {
@@ -66,7 +66,7 @@ export const login = async (req, res, next) => {
       res.status(200).json({
         status: true,
         user: userCredential.user,
-        message: "Đăng nhập thành công"
+        message: "Login successful"
       })
     })
     .catch((error) => {
@@ -74,7 +74,7 @@ export const login = async (req, res, next) => {
         res.status(200).json({
           status: false,
           userId: null,
-          message: "Email hoặc mật khẩu không đúng"
+          message: "Incorrect email or password"
         })
       }
       else {
@@ -94,7 +94,7 @@ export const logout = async (req, res) => {
     .then(() => {
       res.status(200).json({
         status: true,
-        message: "Đăng xuất thành công"
+        message: "Logout successful"
       })
     })
     .catch((error) => {
@@ -142,7 +142,7 @@ export const updateProfile = async (req, res) => {
       .then(() => {
         res.status(200).json({
           status: true,
-          message: "Cập nhật thành công"
+          message: "Update successful"
         })
       })
       .catch((error) => {
@@ -157,7 +157,7 @@ export const updateProfile = async (req, res) => {
       .then(() => {
         res.status(200).json({
           status: true,
-          message: "Cập nhật thành công"
+          message: "Update successful"
         })
       })
       .catch((error) => {
