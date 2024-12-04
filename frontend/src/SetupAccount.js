@@ -1,61 +1,61 @@
-import React, { useState } from 'react'
-import { Container, Form, Button, FormGroup ,Row, Col } from 'react-bootstrap'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { updateProfile } from './services/API';
-import { toast } from 'react-toastify';
-import './app.css'
+import React, { useState } from "react";
+import { Container, Form, Button, FormGroup, Row, Col } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { updateProfile } from "./services/API";
+import { toast } from "react-toastify";
+import "./app.css";
 
 export default function SetupAccount() {
-  const location = useLocation()
-  const { user } = location.state
+  const location = useLocation();
+  const { user } = location.state;
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [DOB, setDOB] = useState('');
-  const [address, setAddress] = useState('');
-  const [gender, setGender] = useState('');
-  const [school, setSchool] = useState('');
-  const [work, setWork] = useState('');
-  const [description, setDescription] = useState('');
+  const [DOB, setDOB] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
+  const [school, setSchool] = useState("");
+  const [work, setWork] = useState("");
+  const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState();
   const [cover, setCover] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("");
     let formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('DOB', DOB);
-    formData.append('address', address);
-    formData.append('gender', gender);
-    formData.append('school', school);
-    formData.append('work', work);
-    formData.append('description', description);
-    formData.append('avatar', avatar);
-    formData.append('cover', cover);
-    
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("DOB", DOB);
+    formData.append("address", address);
+    formData.append("gender", gender);
+    formData.append("school", school);
+    formData.append("work", work);
+    formData.append("description", description);
+    formData.append("avatar", avatar);
+    formData.append("cover", cover);
+
     updateProfile(user.uid, formData)
-    .then(res => {
-      toast.success(res.data.message,{ autoClose: 3000 })
-      navigate("/login")
-    })
-    .catch(err => {
-      setErrorMessage(err.message);
-    })
-  }
+      .then((res) => {
+        toast.success(res.data.message, { autoClose: 3000 });
+        navigate("/login");
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
+  };
 
   return (
     <div className="signup-login">
       <Container
         className="container-lg shadow border p-4 pb-0 rounded-2"
-        style={{ width: '550px', marginTop: '25px', color: 'white' }}
+        style={{ width: "550px", marginTop: "25px", color: "white" }}
       >
         <Form className="d-flex flex-column" onSubmit={handleSubmit}>
           <h1 className="align-self-center">Set up account</h1>
-          
+
           <Row>
             <Col md={6}>
               <FormGroup className="mb-2">
@@ -165,10 +165,14 @@ export default function SetupAccount() {
               </FormGroup>
             </Col>
           </Row>
-          
+
           {errorMessage && <p className="text-danger">{errorMessage}</p>}
-          
-          <Button className='signup-login-button align-self-center mb-3 mt-3' type='submit' style={{ width: '120px'}}>
+
+          <Button
+            className="signup-login-button align-self-center mb-3 mt-3"
+            type="submit"
+            style={{ width: "120px" }}
+          >
             Confirm
           </Button>
         </Form>
