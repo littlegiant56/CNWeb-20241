@@ -19,11 +19,13 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Add new friend successfully",{ autoClose: 3000 });
+        toast.success("Add new friend successfully", { autoClose: 3000 });
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("An error occurred. Please try again.",{ autoClose: 3000 });
+        toast.error("An error occurred. Please try again.", {
+          autoClose: 3000,
+        });
       });
   };
 
@@ -33,11 +35,15 @@ function FriendTile({ friendId, friendRequests, setFriendRequests }) {
       friendId: friendId,
     })
       .then(() => {
-        toast.success("Delete friend request successfully",{ autoClose: 3000 });
+        toast.success("Delete friend request successfully", {
+          autoClose: 3000,
+        });
         setFriendRequests(friendRequests.filter((id) => id !== friendId));
       })
       .catch(() => {
-        toast.error("An error occurred. Please try again.",{ autoClose: 3000 });
+        toast.error("An error occurred. Please try again.", {
+          autoClose: 3000,
+        });
       });
   };
 
@@ -113,7 +119,7 @@ export default function FriendRequest() {
   }, [userId]);
 
   return (
-    <div className="mt-4" style={{height:'600px'}}>
+    <div className="mt-4" style={{ height: "600px" }}>
       <h1 className="text-center mb-4">Friend Request</h1>
       <div
         className="d-flex overflow-auto"

@@ -1,38 +1,38 @@
 .signup-login {
-    /* background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);  */
-    background: #f1b472;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 10px rgba(219, 109, 109, 0.1);
+  /* background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);  */
+  background: #f1b472;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(219, 109, 109, 0.1);
 }
 
 .container-lg {
-    background: rgba(255, 255, 255, 0.2); 
-    border-radius: 15px;
-    backdrop-filter: blur(10px); 
-    padding: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .signup-login-button {
-    background: rgba(238, 179, 177, 0.679) !important; /* Màu nền trong suốt */
-    border: 1px solid rgba(255, 255, 255, 0.4) !important; 
-    color: white;
-    padding: 10px 20px !important;
-    border-radius: 10px !important; /* Độ bo tròn của nút */
-    font-weight: bold !important;
-    backdrop-filter: blur(10px) !important; /* Hiệu ứng làm mờ nền */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; /* Hiệu ứng đổ bóng */
-    transition: all 0.3s ease !important; /* Hiệu ứng chuyển đổi khi hover */
+  background: rgba(238, 179, 177, 0.679) !important; /* Màu nền trong suốt */
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: white;
+  padding: 10px 20px !important;
+  border-radius: 10px !important; /* Độ bo tròn của nút */
+  font-weight: bold !important;
+  backdrop-filter: blur(10px) !important; /* Hiệu ứng làm mờ nền */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; /* Hiệu ứng đổ bóng */
+  transition: all 0.3s ease !important; /* Hiệu ứng chuyển đổi khi hover */
 }
 .avatar-img {
-    width: 40px;
-    height: auto;
-    border-radius: 50% ;
-    object-fit: cover;
-    border: 1px solid #aaa;
-  }
+  width: 40px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #aaa;
+}
