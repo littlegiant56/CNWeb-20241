@@ -207,7 +207,7 @@ export default function NavBar({
             <NavDropdown.Item onClick={handleToProfile}>
               <div className="d-flex align-items-center">
                 <Image
-                  src={profile.avatar}
+                  src={profile?.avatar}
                   roundedCircle
                   style={{
                     width: "40px",
@@ -217,7 +217,7 @@ export default function NavBar({
                   }}
                 />
                 <span style={{ fontWeight: "bold", fontSize: "14px" }}>
-                  {profile.firstName + " " + profile.lastName}
+                  {profile?.firstName + " " + profile?.lastName}
                 </span>
               </div>
             </NavDropdown.Item>
