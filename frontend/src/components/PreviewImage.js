@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import { Container, Button } from "react-bootstrap";
 
 /**
  * Renders a preview image component.
@@ -11,7 +11,6 @@ import { Container, Button } from 'react-bootstrap';
  * @returns {JSX.Element} The preview image component.
  */
 export function PreviewImage({ imageSrc, selectedImage, setSelectedImage }) {
-
   const [imageURL, setImageURL] = useState();
 
   useEffect(() => {
@@ -24,11 +23,17 @@ export function PreviewImage({ imageSrc, selectedImage, setSelectedImage }) {
   };
 
   return (
-    <Container className='me-3' style={{ position: 'relative' }}>
-      <div className='border rounded bg-danger p-1' style={{ position: 'absolute', cursor: 'pointer', top: "-10px",  }} onClick={handleRemoveImage}>
-        <p className='m-0' style={{color: '#fff'}}>X</p>
+    <Container className="me-3" style={{ position: "relative" }}>
+      <div
+        className="border rounded bg-danger p-1"
+        style={{ position: "absolute", cursor: "pointer", top: "-10px" }}
+        onClick={handleRemoveImage}
+      >
+        <p className="m-0" style={{ color: "#fff" }}>
+          X
+        </p>
       </div>
-      <img src={imageURL} style={{ maxWidth: '200px', maxHeight: '400px' }} />
+      <img src={imageURL} style={{ maxWidth: "200px", maxHeight: "400px" }} />
     </Container>
   );
 }
