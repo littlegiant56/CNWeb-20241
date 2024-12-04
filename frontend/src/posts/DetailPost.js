@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Card, Col } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
-import { getPostById, getProfileByUserId, removeLikePost } from '../services/API';
-import { socket } from '../socket'
+import React, { useEffect, useState } from "react";
+import { Container, Card, Col } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import {
+  getPostById,
+  getProfileByUserId,
+  removeLikePost,
+} from "../services/API";
+import { socket } from "../socket";
 // import heart from '../assets/icons/heart.png'
 // import heart_red from '../assets/icons/heart_red.png'
 // import comment from '../assets/icons/comment.png'
 // import share from '../assets/icons/share.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
-import { faThumbsUp as regularThumbsUp } from '@fortawesome/free-regular-svg-icons';
-import CommentSection from '../components/CommentSection';
-import ImageSlideShow from './ImageSlideShow';
-import SharedPostCard from '../components/SharedPostCard';
-import SharePostModal from '../components/SharePostModal';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbsUp,
+  faComment,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import CommentSection from "../components/CommentSection";
+import ImageSlideShow from "./ImageSlideShow";
+import SharedPostCard from "../components/SharedPostCard";
+import SharePostModal from "../components/SharePostModal";
 
 export default function DetailPost() {
-
-  const { id } = useParams()
+  const { id } = useParams();
   const [post, setPost] = useState();
   const [name, setName] = useState("");
   const [avatarImgLink, setAvatarImgLink] = useState();
@@ -28,106 +35,158 @@ export default function DetailPost() {
   const [openShare, setOpenShare] = useState(false);
 
   let getUserInfo = (post) => {
-    getProfileByUserId(post.userId)
-      .then(res => {
-        setName(res.data.user.firstName + " " + res.data.user.lastName);
-        setAvatarImgLink(res.data.user.avatar);
-      })
-      const fireBaseTime = new Date(
-        post.dateCreated.seconds * 1000 + post.dateCreated.nanoseconds / 1000000,
-      );
-    setDateCreated(fireBaseTime.toLocaleTimeString('vi-VN') + " " + fireBaseTime.toLocaleDateString('vi-VN'))
-  }
+    getProfileByUserId(post.userId).then((res) => {
+      setName(res.data.user.firstName + " " + res.data.user.lastName);
+      setAvatarImgLink(res.data.user.avatar);
+    });
+    const fireBaseTime = new Date(
+      post.dateCreated.seconds * 1000 + post.dateCreated.nanoseconds / 1000000
+    );
+    setDateCreated(
+      fireBaseTime.toLocaleTimeString("vi-VN") +
+        " " +
+        fireBaseTime.toLocaleDateString("vi-VN")
+    );
+  };
 
   const handleClickLike = () => {
-    setIsLiked(isLiked => !isLiked);
+    setIsLiked((isLiked) => !isLiked);
     if (isLiked) {
-      removeLikePost(localStorage.getItem('userId'), id);
-      setLikeCount(likeCount => likeCount - 1);
+      removeLikePost(localStorage.getItem("userId"), id);
+      setLikeCount((likeCount) => likeCount - 1);
     } else {
       socket.emit("likePost", {
-        sentUsername: localStorage.getItem('username'),
-        userId: localStorage.getItem('userId'),
+        sentUsername: localStorage.getItem("username"),
+        userId: localStorage.getItem("userId"),
         postId: id,
-        postUserId: post.userId
-      })
-      setLikeCount(likeCount => likeCount + 1);
+        postUserId: post.userId,
+      });
+      setLikeCount((likeCount) => likeCount + 1);
     }
-  }
+  };
 
   const handleSharePost = () => {
-    setOpenShare(true)
-  }
+    setOpenShare(true);
+  };
 
   useEffect(() => {
     // Fetch post by id
     getPostById(id)
-      .then(res => {
+      .then((res) => {
         setPost(res.data.data);
-        setIsLiked(res.data.data.likedList.includes(localStorage.getItem('userId')));
+        setIsLiked(
+          res.data.data.likedList.includes(localStorage.getItem("userId"))
+        );
         setLikeCount(res.data.data.likedList.length);
         setCommentCount(res.data.data.comments.length);
         getUserInfo(res.data.data);
       })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [id])
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
 
   return (
-    post && 
-    <Container className='w-75' style={{height:'615px'}}>
-      <Card className='mb-2'>
-        <Card.Header style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
-          <Container className='d-flex justify-content-between p-0'>
-            <Col className='d-flex'>
-              <img src={avatarImgLink} alt='avatar' style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' ,border: '1px solid #aaa'}} />
-              <Link to={`/profile/${post.userId}`} style={{textDecoration: 'none', color: 'black'}}>
-                <h5 className='align-self-center ms-2'>{name}</h5>
-              </Link>
-            </Col>
-            <Col className='d-flex flex-row-reverse'>
-              <p className='align-self-center m-0'>Created at: {dateCreated}</p>
-            </Col>
-          </Container>
-        </Card.Header>
-        <Card.Body style={{backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderBottom: 'none' }}>
-          <Card.Text>
-            {post.body}
-          </Card.Text>
-          {post.image && post.image.length > 0 && <ImageSlideShow images={post.image} />}
-          {post.video && <video className='border' src={post.video} controls width="100%" />}
-          {post.sharedPostId && <SharedPostCard postId={post.sharedPostId} />}
-        </Card.Body>
-        <Card.Footer style={{ backgroundColor: '#e0e0e0', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <Container className='d-flex justify-content-between align-items-center'>
-            <Col className='d-flex align-items-center '>
-              <FontAwesomeIcon
-                icon={isLiked ? faThumbsUp : regularThumbsUp}
-                className='me-2'
-                style={{ cursor: 'pointer', color: isLiked ? 'blue' : 'black' }}
-                onClick={handleClickLike}
+    post && (
+      <Container className="w-75" style={{ height: "615px" }}>
+        <Card className="mb-2">
+          <Card.Header
+            style={{
+              backgroundColor: "#e0e0e0",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              borderBottom: "none",
+            }}
+          >
+            <Container className="d-flex justify-content-between p-0">
+              <Col className="d-flex">
+                <img
+                  src={avatarImgLink}
+                  alt="avatar"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "1px solid #aaa",
+                  }}
+                />
+                <Link
+                  to={`/profile/${post.userId}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <h5 className="align-self-center ms-2">{name}</h5>
+                </Link>
+              </Col>
+              <Col className="d-flex flex-row-reverse">
+                <p className="align-self-center m-0">
+                  Created at: {dateCreated}
+                </p>
+              </Col>
+            </Container>
+          </Card.Header>
+          <Card.Body
+            style={{
+              backgroundColor: "#e0e0e0",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              borderBottom: "none",
+            }}
+          >
+            <Card.Text>{post.body}</Card.Text>
+            {post.image && post.image.length > 0 && (
+              <ImageSlideShow images={post.image} />
+            )}
+            {post.video && (
+              <video
+                className="border"
+                src={post.video}
+                controls
+                width="100%"
               />
-              <p className='m-0'>{likeCount} Like</p>
-            </Col>
-            <Col className='d-flex align-items-center justify-content-center' >
-              <FontAwesomeIcon icon={faComment} className='me-2' />
-              <p className='m-0'>{commentCount} Comment</p>
-            </Col>
-            <Col className='d-flex align-items-center justify-content-end'>
-              <FontAwesomeIcon
-                icon={faShare}
-                className='me-2'
-                style={{ cursor: 'pointer' }}
-                onClick={handleSharePost}
-              />
-              <p className=' m-0'>Share</p>
-            </Col>
-          </Container>
-          <SharePostModal show={openShare} handleClose={() => setOpenShare(false)} postId={id} />
-        </Card.Footer>
-      </Card>
-      <CommentSection postId={id} postUserId={post.userId}/>
-    </Container>
-  )
+            )}
+            {post.sharedPostId && <SharedPostCard postId={post.sharedPostId} />}
+          </Card.Body>
+          <Card.Footer
+            style={{
+              backgroundColor: "#e0e0e0",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          >
+            <Container className="d-flex justify-content-between align-items-center">
+              <Col className="d-flex align-items-center ">
+                <FontAwesomeIcon
+                  icon={isLiked ? faThumbsUp : regularThumbsUp}
+                  className="me-2"
+                  style={{
+                    cursor: "pointer",
+                    color: isLiked ? "blue" : "black",
+                  }}
+                  onClick={handleClickLike}
+                />
+                <p className="m-0">{likeCount} Like</p>
+              </Col>
+              <Col className="d-flex align-items-center justify-content-center">
+                <FontAwesomeIcon icon={faComment} className="me-2" />
+                <p className="m-0">{commentCount} Comment</p>
+              </Col>
+              <Col className="d-flex align-items-center justify-content-end">
+                <FontAwesomeIcon
+                  icon={faShare}
+                  className="me-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={handleSharePost}
+                />
+                <p className=" m-0">Share</p>
+              </Col>
+            </Container>
+            <SharePostModal
+              show={openShare}
+              handleClose={() => setOpenShare(false)}
+              postId={id}
+            />
+          </Card.Footer>
+        </Card>
+        <CommentSection postId={id} postUserId={post.userId} />
+      </Container>
+    )
+  );
 }
