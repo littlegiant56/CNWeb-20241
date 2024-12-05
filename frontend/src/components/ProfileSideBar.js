@@ -32,7 +32,7 @@ function ProfileSideBar({ userId }) {
     >
       {profile && (
         <>
-          <h4>Mô tả bản thân</h4>
+          <h4>Mô tả bản thân bạn đi</h4>
           {profile.description && (
             <p>
               <span className="fw-semibold">Introduce: </span>
