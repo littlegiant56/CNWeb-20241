@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "frontend/**"
+      - "backend/**"
 
 jobs:
   build-and-deploy-frontend:
-    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'frontend')
+    if: contains(github.event.head_commit.modified, 'frontend/')
     runs-on: ubuntu-latest
 
     steps:
@@ -36,12 +39,12 @@ jobs:
         script: |
           docker login ghcr.io -u ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
           docker pull ghcr.io/${{ github.actor }}/fona-client-final:latest
-          docker stop ghcr.io/${{ github.actor }}/fona-client-final:latest || true
-          docker rm ghcr.io/${{ github.actor }}/fona-client-final:latest || true
-          docker run -d -p 8080:80 ghcr.io/${{ github.actor }}/fona-client-final:latest
+          docker stop fona-client-final || true
+          docker rm fona-client-final || true
+          docker run -d --name fona-client-final -p 8080:80 ghcr.io/${{ github.actor }}/fona-client-final:latest
 
   deploy-backend:
-    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'backend')
+    if: contains(github.event.head_commit.modified, 'backend/')
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +58,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: 22
-        scripts: |
+        script: |
           cd /var/www/CNWeb-20241/backend
           git fetch origin
           git checkout main
