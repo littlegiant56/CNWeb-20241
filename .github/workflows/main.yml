@@ -20,8 +20,8 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        
+        password: ${{ secrets.TOKEN }}
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2    
 
@@ -48,7 +48,7 @@ jobs:
         port: 22
         script: |
           LOWERCASE_ACTOR=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')
-          docker login ghcr.io -u ${LOWERCASE_ACTOR} --password ${{ secrets.GITHUB_TOKEN }}
+          docker login ghcr.io -u ${LOWERCASE_ACTOR} --password ${{ secrets.TOKEN }}
           docker pull ghcr.io/${LOWERCASE_ACTOR}/fona-client-final:latest
           docker stop fona-client-final || true
           docker rm fona-client-final || true
