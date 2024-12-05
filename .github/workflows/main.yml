@@ -1,0 +1,64 @@
+name: Application Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy-frontend:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'frontend')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Build and Push Docker Image
+      working-directory: frontend
+      run: |
+        docker build --platform linux/amd64 -t ghcr.io/${{ github.actor }}/fona-client-final:latest .
+        docker push ghcr.io/${{ github.actor }}/fona-client-final:latest
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          docker login ghcr.io -u ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+          docker pull ghcr.io/${{ github.actor }}/fona-client-final:latest
+          docker stop ghcr.io/${{ github.actor }}/fona-client-final:latest || true
+          docker rm ghcr.io/${{ github.actor }}/fona-client-final:latest || true
+          docker run -d -p 8080:80 ghcr.io/${{ github.actor }}/fona-client-final:latest
+
+  deploy-backend:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'backend')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Deploy to VPS via SSH
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        scripts: |
+          cd /var/www/CNWeb-20241/backend
+          git fetch origin
+          git checkout main
+          git pull
+          npm install
+          pm2 reload fona-api || pm2 start index.js --name fona-api
