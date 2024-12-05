@@ -105,6 +105,8 @@ export const logout = async (req, res) => {
     });
 };
 
+
+// GET /getProfile/:idUser
 export const getUserProfileById = async (req, res) => {
   const docRef = doc(db, "profiles", req.params.idUser);
   const docSnap = await getDoc(docRef);
@@ -205,6 +207,8 @@ export const updateProfile = async (req, res) => {
   if (!avatarCheck && !coverCheck) updateFirestore();
 };
 
+
+// GET /getAllUser
 export const getAllUser = async (req, res) => {
   const querySnapshot = await getDocs(collection(db, "profiles"));
   let users = [];
