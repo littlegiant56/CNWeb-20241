@@ -21,6 +21,8 @@ import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
 import Randomstring from "randomstring"
 import db from '../firebase.js'
 
+
+// POST /createPost
 export const createPost = async (req, res) => {
     const body = req.body.body
     const userId = req.body.userId
@@ -84,6 +86,8 @@ export const createPost = async (req, res) => {
     })
 }
 
+
+// GET /getPostByUserId/:userId
 export const getPostByUserId = async (req, res) => {
     const userId = req.params.userId
     let posts = []
@@ -114,6 +118,8 @@ export const getPostByUserId = async (req, res) => {
     }
 }
 
+
+// GET /getAllPost
 export const getAllPost = async (req, res) => {
     let posts = []
 
@@ -139,6 +145,7 @@ export const getAllPost = async (req, res) => {
     }
 }
 
+// GET /getPostByPostId/:postId
 export const getPostByPostId = async (req, res) => {
     const postId = req.params.postId
 
@@ -169,6 +176,7 @@ export const getPostByPostId = async (req, res) => {
     }
 }
 
+// POST /updatePost/:userId/:postId
 export const updatePost = async (req, res) => {
     let body = req.body.body
     const imageFile = req.files["image"] ? req.files["image"] : null
@@ -248,6 +256,7 @@ export const updatePost = async (req, res) => {
         })
 }
 
+// POST /deletePost/:postId
 export const deletePost = async (req, res) => {
     const postId = req.params.postId
 
@@ -265,6 +274,7 @@ export const deletePost = async (req, res) => {
     }
 }
 
+// POST /sharePost/:postId
 export const sharePost = async (req, res) => {
     const sharedPostId = req.params.postId
     const body = req.body.body
@@ -301,6 +311,7 @@ export const sharePost = async (req, res) => {
     })
 }
 
+// POST /likePost/:userId/:postId
 export const likePost = async (req) => {
     const userId = req.userId
     const postId = req.postId
@@ -335,6 +346,7 @@ export const likePost = async (req) => {
     }
 }
 
+// POST /removeLikePost/:userId/:postId
 export const removeLikePost = async (req, res) => {
     const userId = req.params.userId
     const postId = req.params.postId
@@ -363,6 +375,7 @@ export const removeLikePost = async (req, res) => {
     }
 }
 
+ 
 export const createComment = async (req) => {
     const body = req.content
     const postId = req.postId
@@ -393,6 +406,7 @@ export const createComment = async (req) => {
     })
 }
 
+// GET /getCommentByPostId/:postId
 export const getCommentByPostId = async (req, res) => {
     const postId = req.params.postId
 
@@ -426,6 +440,7 @@ export const getCommentByPostId = async (req, res) => {
     }
 }
 
+
 export const createNotification = async (req) => {
     const notificationRef = doc(db, "notifications", req.postUserId)
     if (req.userId === req.postUserId) return
@@ -451,6 +466,7 @@ export const createNotification = async (req) => {
         })
 }
 
+// GET /getNotificationByUserId/:userId
 export const getNotificationByUserId = async (req, res) => {
     const userId = req.params.userId
 
@@ -463,6 +479,7 @@ export const getNotificationByUserId = async (req, res) => {
     })
 }
 
+// GET /getPostByOffset
 export const getPostByOffset = async (req, res) => {
     const offset = parseInt(req.query.offset)
     let lastVisibleId = req.query.lastVisibleId
